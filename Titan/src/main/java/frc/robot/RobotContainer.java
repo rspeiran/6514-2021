@@ -157,13 +157,13 @@ public class RobotContainer {
         shooterJoystickButton3.whenPressed(new DoNothingDefaultButton() ,true);
         SmartDashboard.putData("ShooterJoystickButton3",new DoNothingDefaultButton() );
 
-        final JoystickButton shooterJoystickButton2 = new JoystickButton(shooterJoystick, 1);        
+        final JoystickButton shooterJoystickButton2 = new JoystickButton(shooterJoystick, 2);        
         shooterJoystickButton2.whenPressed(new ShooterOff(m_fuelDeliverySubSystem) ,true);
-        SmartDashboard.putData("ShooterJoystickButton2",new ShooterOff(m_fuelDeliverySubSystem) );
+        //SmartDashboard.putData("SJ Shooter Off (B)",new ShooterOff(m_fuelDeliverySubSystem) );
 
         final JoystickButton shooterJoystickButton1 = new JoystickButton(shooterJoystick, 1);        
         shooterJoystickButton1.whenPressed(new ShooterOn(m_fuelDeliverySubSystem) ,true);
-        SmartDashboard.putData("ShooterJoystickButton1",new ShooterOn(m_fuelDeliverySubSystem) );
+        //SmartDashboard.putData("SJ Shooter On (A)",new ShooterOn(m_fuelDeliverySubSystem) );
 
 
 
