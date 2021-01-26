@@ -136,13 +136,13 @@ public class FuelDeliverySubSystem extends SubsystemBase {
     }
 
     public void HippoMotorOn() {
-        HippoMotorSpeedController.set(HippoIntakeSpeed);
+        HippoMotorSpeedController.set(-1*HippoIntakeSpeed);
     }
     public void HippoMotorOff() {
         HippoMotorSpeedController.set(HippoMotorStop);
     }
     public void HippoMotorReverseOn() {
-        HippoMotorSpeedController.set(-1*HippoIntakeSpeed);
+        HippoMotorSpeedController.set(HippoIntakeSpeed);
     }
   
     //public void HippoMotorReverse() {
