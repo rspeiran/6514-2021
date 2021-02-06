@@ -55,9 +55,6 @@ public class HippoMechOut extends CommandBase {
     @Override
     public void execute() {
         m_fuelDeliverySubSystem.HippoExtendMech();
-        //m_fuelDeliverySubSystem.hippoDoubleSolenoid.toggle();
-        m_fuelDeliverySubSystem.fuelReleaseSolenoidExtend();
-
     }
 
     // Called once the command ends or is interrupted.
