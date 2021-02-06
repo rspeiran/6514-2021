@@ -17,7 +17,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.SpeedController;
@@ -32,8 +31,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
  *
  */
 public class DriveSubsystem extends SubsystemBase {
-    private Talon leftDriveSpeedController;
-    private Victor rightDriveSpeedController;
+
     //private RobotDrive robotDrive;
     private Encoder leftDriveEncoder;
     private Encoder rightDriveEncoder;
@@ -58,63 +56,48 @@ public class DriveSubsystem extends SubsystemBase {
     *
     */
     public DriveSubsystem() {
-        leftDriveSpeedController = new Talon(6);
-        addChild("LeftDriveSpeedController",leftDriveSpeedController);
-        leftDriveSpeedController.setInverted(false);
-
-        rightDriveSpeedController = new Victor(7);
-        addChild("RightDriveSpeedController",rightDriveSpeedController);
-        rightDriveSpeedController.setInverted(false);
-
-        //robotDrive = new RobotDrive(leftDriveSpeedController, rightDriveSpeedController);
-        
-        // robotDrive.setSafetyEnabled(true);
-        //robotDrive.setExpiration(0.1);
-        //robotDrive.setSensitivity(0.5);
-        //robotDrive.setMaxOutput(1.0);
-
-
         leftDriveEncoder = new Encoder(2, 3, false, EncodingType.k4X);
         addChild("LeftDriveEncoder",leftDriveEncoder);
         leftDriveEncoder.setDistancePerPulse(1.0);
-        leftDriveEncoder.setPIDSourceType(PIDSourceType.kRate);
+        //leftDriveEncoder.setPIDSourceType(PIDSourceType.kRate);
 
         rightDriveEncoder = new Encoder(4, 5, false, EncodingType.k4X);
         addChild("RightDriveEncoder",rightDriveEncoder);
         rightDriveEncoder.setDistancePerPulse(1.0);
-        rightDriveEncoder.setPIDSourceType(PIDSourceType.kRate);
+        //rightDriveEncoder.setPIDSourceType(PIDSourceType.kRate);
 
         gyro = new AnalogGyro(0);
         addChild("Gyro",gyro);
         gyro.setSensitivity(0.007);
 
-
         leftDriveSpeedControl = new WPI_TalonSRX(21);
+        addChild("leftDriveSpeedController",leftDriveSpeedControl);
         leftDriveSpeedControl.setInverted(false);
 
         rightDriveSpeedControl = new WPI_TalonSRX(22);
+        addChild("rightDriveSpeedControl",rightDriveSpeedControl);
         rightDriveSpeedControl.setInverted(false);
 
         leftDriveSpeedControlFollower = new WPI_VictorSPX(11);
         rightDrriveSpeedControlFollower = new WPI_VictorSPX(12);
 
-        //Conigure follower
+        //Conigure follower Left and Right
         leftDriveSpeedControlFollower.follow(leftDriveSpeedControl);
         rightDrriveSpeedControlFollower.follow(rightDriveSpeedControl);
 
-        //Configure Breaking
+        //Configure Breaking Left and Right
         leftDriveSpeedControl.setNeutralMode(NeutralMode.Coast);
         rightDriveSpeedControl.setNeutralMode(NeutralMode.Coast);
 
-        //Configure Full Speed take off ramp up
+        //Configure Full Speed take off ramp up Left and Right
         leftDriveSpeedControl.configOpenloopRamp(0.5);
         rightDriveSpeedControl.configOpenloopRamp(0.5);
 
-        //Config Closed loop
+        //Config Closed loop Left and Right
         leftDriveSpeedControl.configClosedloopRamp(0);
         rightDriveSpeedControl.configClosedloopRamp(0);
 
-        //Config Voltage comp
+        //Config Voltage comp Left andRight
         leftDriveSpeedControl.enableVoltageCompensation(true);
         rightDriveSpeedControl.enableVoltageCompensation(true);
 
