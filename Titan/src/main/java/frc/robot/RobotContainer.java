@@ -83,6 +83,8 @@ public class RobotContainer {
         SmartDashboard.putData("LiftWinchOff", new LiftWinchOff(m_liftSubsystem));
         SmartDashboard.putData("HippoMechOut", new HippoMechOut(m_fuelDeliverySubSystem));
         SmartDashboard.putData("HippoMechIn", new HippoMechIn(m_fuelDeliverySubSystem));
+        SmartDashboard.putData("FuelReleaseExtend", new FuelReleaseExtend(m_fuelDeliverySubSystem));
+        SmartDashboard.putData("FuelReleaseRetract", new FuelReleaseRetract(m_fuelDeliverySubSystem));
         SmartDashboard.putData("HippoMotorIn", new HippoMotorIn(m_fuelDeliverySubSystem));
         SmartDashboard.putData("HippoMotorOut", new HippoMotorOut(m_fuelDeliverySubSystem));
         SmartDashboard.putData("HippoMotorStop", new HippoMotorStop(m_fuelDeliverySubSystem));
