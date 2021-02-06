@@ -18,15 +18,18 @@ public class FuelShooterPIDSubsystem extends PIDSubsystem {
     private double ShooterSpeed = 0.85;
 
     //P I D Variables
-    private static final double kP = 1.0;  
+    private static final double kP = 0.95;  
     private static final double kI = 0.0;
     private static final double kD = 0.0;
-    private static final double kF = 0.0;
+    private static final double kF = 1.00;
 
+    private double mRate;
+    private double maxVelocityTop;
+ 
     
     public FuelShooterPIDSubsystem() {
         super(new PIDController(kP, kI, kD));
-        getController().setTolerance(0.2);
+        getController().setTolerance(10,5);
 
         //Encoder m_ShooterEncoder = new Encoder(0,1, false, Encoder.EncodingType.k2X);
         addChild("Shooter Encoder",m_ShooterEncoder);
@@ -60,15 +63,15 @@ public class FuelShooterPIDSubsystem extends PIDSubsystem {
 
     @Override
     public double getMeasurement() {
-        double mrate = 0;
+        mRate = 0;
         
         try {
-            mrate = m_ShooterEncoder.getRate();
+            mRate = m_ShooterEncoder.getRate();
         } catch (RuntimeException ex) {
             System.out.println("Exception Getting Shooter Rate: " + ex.getMessage());
         }
         
-        return mrate;
+        return mRate;
 
     }
 
@@ -77,14 +80,18 @@ public class FuelShooterPIDSubsystem extends PIDSubsystem {
         output += setpoint*kF;
 
         //m_ShooterTopMotor.pidWrite(output);
+        m_ShooterTopMotor.set(output/maxVelocityTop);
 
-        System.out.print("Output " + output);
+        System.out.print(" Output:   " + output);
+        System.out.print(" CalcV:    " + output/maxVelocityTop);
+        System.out.print(" Rate:     " + mRate);
         System.out.println(" Setpoint: " + setpoint);
 
     }
 
     public void ShooterOn() {
-        m_ShooterTopMotor.set(ShooterSpeed);
+        //m_ShooterTopMotor.set(ShooterSpeed);
+
     }
 
     public void ShooterOff() {

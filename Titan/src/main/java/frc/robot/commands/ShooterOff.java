@@ -53,6 +53,7 @@ public class ShooterOff extends CommandBase {
     @Override
     public void execute() {
         m_FuelShooterPIDSubsystem.ShooterOff();
+        m_FuelShooterPIDSubsystem.setSetpoint(0);
         m_FuelShooterPIDSubsystem.disable();
     }
 
