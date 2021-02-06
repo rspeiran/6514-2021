@@ -54,6 +54,7 @@ public class HippoMechIn extends CommandBase {
     @Override
     public void execute() {
         m_fuelDeliverySubSystem.HippoRetractMech();
+        m_fuelDeliverySubSystem.fuelReleaseSolenoidExtend();
 
     }
 

@@ -15,10 +15,10 @@ public class FuelShooterPIDSubsystem extends PIDSubsystem {
 
     //m_ShooterTopMotor = new Spark(0);
 
-    private double ShooterSpeed = 0.35;
+    private double ShooterSpeed = 0.85;
 
     //P I D Variables
-    private static final double kP = 1.0;
+    private static final double kP = 1.0;  
     private static final double kI = 0.0;
     private static final double kD = 0.0;
     private static final double kF = 0.0;
@@ -76,7 +76,7 @@ public class FuelShooterPIDSubsystem extends PIDSubsystem {
     public void useOutput(double output, double setpoint) {
         output += setpoint*kF;
 
-        m_ShooterTopMotor.pidWrite(output);
+        //m_ShooterTopMotor.pidWrite(output);
 
         System.out.print("Output " + output);
         System.out.println(" Setpoint: " + setpoint);
