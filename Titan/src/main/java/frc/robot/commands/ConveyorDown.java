@@ -49,6 +49,7 @@ public class ConveyorDown extends WaitCommand {
     @Override
     public void initialize() {
         super.initialize();
+        System.out.println("Timeout " + m_timeout);
     }
 
     // Called repeatedly when this Command is scheduled to run

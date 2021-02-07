@@ -18,18 +18,18 @@ public class FuelShooterPIDSubsystem extends PIDSubsystem {
     private double ShooterSpeed = 0.85;
 
     //P I D Variables
-    private static final double kP = 0.95;  
+    private static final double kP = 0.0;  
     private static final double kI = 0.0;
     private static final double kD = 0.0;
     private static final double kF = 1.00;
 
     private double mRate;
-    private double maxVelocityTop;
+    private double maxVelocityTop = 475;
  
     
     public FuelShooterPIDSubsystem() {
         super(new PIDController(kP, kI, kD));
-        getController().setTolerance(10,5);
+        getController().setTolerance(0.3);
 
         //Encoder m_ShooterEncoder = new Encoder(0,1, false, Encoder.EncodingType.k2X);
         addChild("Shooter Encoder",m_ShooterEncoder);
@@ -78,19 +78,29 @@ public class FuelShooterPIDSubsystem extends PIDSubsystem {
     @Override
     public void useOutput(double output, double setpoint) {
         output += setpoint*kF;
+        double calcV = output/maxVelocityTop;
 
         //m_ShooterTopMotor.pidWrite(output);
-        m_ShooterTopMotor.set(output/maxVelocityTop);
+        //m_ShooterTopMotor.set(output/maxVelocityTop);
+        if (output >1) { //Max Value
+            calcV=1;
+        }
+        else if (output <0)  //No reversing!
+        {
+            calcV = 0;
+        }
+
+        m_ShooterTopMotor.set(calcV);
 
         System.out.print(" Output:   " + output);
-        System.out.print(" CalcV:    " + output/maxVelocityTop);
+        System.out.print(" CalcV:    " + calcV);
         System.out.print(" Rate:     " + mRate);
         System.out.println(" Setpoint: " + setpoint);
 
     }
 
     public void ShooterOn() {
-        //m_ShooterTopMotor.set(ShooterSpeed);
+        m_ShooterTopMotor.set(ShooterSpeed);
 
     }
 

@@ -12,8 +12,8 @@
 package frc.robot.subsystems;
 
 
-import frc.robot.commands.*;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+//import frc.robot.commands.*;
+//import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import edu.wpi.first.wpilibj.Compressor;
@@ -21,7 +21,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Ultrasonic;
-import edu.wpi.first.wpilibj.CounterBase.EncodingType;
+//import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.Spark;
 
@@ -53,7 +53,7 @@ public class FuelDeliverySubSystem extends SubsystemBase {
 
     
   
-    private static Ultrasonic fuelDetectorUltrasonic;
+    private Ultrasonic fuelDetectorUltrasonic;
     /**
     *
     */
