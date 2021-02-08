@@ -124,8 +124,8 @@ public class DriveSubsystem extends SubsystemBase {
         if (!RobotState.isAutonomous())
         {
             if(userDriveStyle == DriveStyle.Tank) {
-                differentialDrive.tankDrive(RobotContainer.getInstance().getDriverJoystick().getY(),
-                                            RobotContainer.getInstance().getDriverJoystick().getRawAxis(5));
+                differentialDrive.tankDrive(-RobotContainer.getInstance().getDriverJoystick().getRawAxis(5),
+                                            RobotContainer.getInstance().getDriverJoystick().getY());
 
             }
             else if (userDriveStyle == DriveStyle.Arcade) {
