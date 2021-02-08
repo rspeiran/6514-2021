@@ -58,13 +58,26 @@ public class DriveSubsystem extends SubsystemBase {
     public DriveSubsystem() {
         leftDriveEncoder = new Encoder(2, 3, false, EncodingType.k4X);
         addChild("LeftDriveEncoder",leftDriveEncoder);
-        leftDriveEncoder.setDistancePerPulse(1.0);
+        //leftDriveEncoder.setDistancePerPulse(1.0);
         //leftDriveEncoder.setPIDSourceType(PIDSourceType.kRate);
+        leftDriveEncoder.setDistancePerPulse(19./2048.);
+        leftDriveEncoder.setMaxPeriod((.1));
+        leftDriveEncoder.setMinRate(10);
+        leftDriveEncoder.setReverseDirection(false);
+        leftDriveEncoder.setSamplesToAverage(5);
+
 
         rightDriveEncoder = new Encoder(4, 5, false, EncodingType.k4X);
         addChild("RightDriveEncoder",rightDriveEncoder);
-        rightDriveEncoder.setDistancePerPulse(1.0);
+        //rightDriveEncoder.setDistancePerPulse(1.0);
         //rightDriveEncoder.setPIDSourceType(PIDSourceType.kRate);
+        rightDriveEncoder.setDistancePerPulse(19./2048.);
+        rightDriveEncoder.setMaxPeriod((.1));
+        rightDriveEncoder.setMinRate(10);
+        rightDriveEncoder.setReverseDirection(false);
+        rightDriveEncoder.setSamplesToAverage(5);
+        rightDriveEncoder.setReverseDirection(true);
+
 
         gyro = new AnalogGyro(0);
         addChild("Gyro",gyro);
