@@ -18,10 +18,10 @@ public class FuelShooterPIDSubsystem extends PIDSubsystem {
     private double ShooterSpeed = 0.85;
 
     //P I D Variables
-    private static final double kP = 0.0;  
+    private static final double kP = 1.5;  
     private static final double kI = 0.0;
     private static final double kD = 0.0;
-    private static final double kF = 1.00;
+    private static final double kF = 1.20;
 
     private double mRate;
     private double maxVelocityTop = 475;
@@ -82,10 +82,10 @@ public class FuelShooterPIDSubsystem extends PIDSubsystem {
 
         //m_ShooterTopMotor.pidWrite(output);
         //m_ShooterTopMotor.set(output/maxVelocityTop);
-        if (output >1) { //Max Value
+        if (calcV >1) { //Max Value
             calcV=1;
         }
-        else if (output <0)  //No reversing!
+        else if (calcV <0)  //No reversing!
         {
             calcV = 0;
         }
