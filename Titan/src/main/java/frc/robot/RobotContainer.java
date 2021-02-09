@@ -78,8 +78,8 @@ public class RobotContainer {
         SmartDashboard.putData("ControlPanelStop", new ControlPanelStop(m_controlPanelSubsystem));
         SmartDashboard.putData("ControlPanelAuto", new ControlPanelAuto(m_controlPanelSubsystem));
         SmartDashboard.putData("DriveTeleop", new DriveTeleop());
-        SmartDashboard.putData("DriveStraight", new DriveStraight());
-        SmartDashboard.putData("DriveAngle", new DriveAngle());
+        SmartDashboard.putData("DriveStraight", new DriveStraight(m_driveSubsystem, 1.000));
+        SmartDashboard.putData("DriveAngle", new DriveAngle(m_driveSubsystem));
         SmartDashboard.putData("LiftMotorUp", new LiftMotorUp(m_liftSubsystem));
         SmartDashboard.putData("LiftMotorStop", new LiftMotorStop(m_liftSubsystem));
         SmartDashboard.putData("LiftMotorDown", new LiftMotorDown(m_liftSubsystem));
