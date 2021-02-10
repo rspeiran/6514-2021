@@ -50,14 +50,24 @@ public class FuelDeliverySubSystem extends SubsystemBase {
   
     private double ConveyorMotorSpeed = 1.00;
     //private double ShooterSpeed = 0.50;
-
-    
   
     private Ultrasonic fuelDetectorUltrasonic;
+    public int FuelCount = 0;
+    public boolean FuelAtIntakeDetected = false;
+    
+    private enum ConveyorState {
+        Auto,
+        Idle,
+        Up,
+        Down
+    }
+    private ConveyorState ConveyorStatus = ConveyorState.Idle;
+
     /**
     *
     */
     public FuelDeliverySubSystem() {
+
         compressor = new Compressor(PCMDeviceID);
         addChild("Compressor",compressor);
 
@@ -89,11 +99,28 @@ public class FuelDeliverySubSystem extends SubsystemBase {
         HippoMotorSpeedController = new Spark(3);
 
     }
+    //public void initDefaultCommand() {
+    //    // Set the default command for a subsystem here.
+    //    setDefaultCommand(new FuelSystemDefault());
+    //}
 
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
         //ShooterEncoder.getRate();
+        if (DetectFuelAtFeeder() < 4.2) {
+            FuelAtIntakeDetected = true;
+            //ConveyorUp();
+            //HippoRetractMech();
+            //HippoMotorOn();
+            ConveyorStatus = ConveyorState.Auto;
+            
+            //FuelCount = FuelCount +1;
+        } else if (ConveyorStatus == ConveyorState.Auto && DetectFuelAtFeeder() >= 4.2   ) {
+            ConveyorOff();
+            HippoMotorOff();
+            ConveyorStatus = ConveyorState.Idle;
+        }
 
     }
 
@@ -209,8 +236,10 @@ public class FuelDeliverySubSystem extends SubsystemBase {
     public void ShooterOff() {
         //ShooterTopMotor.set(0);
         ShooterBottomMotor.set(0);
+    }
 
-
+    public double DetectFuelAtFeeder() {
+        return fuelDetectorUltrasonic.getRangeInches();
     }
   
 
