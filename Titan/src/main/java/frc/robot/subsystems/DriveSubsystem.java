@@ -36,8 +36,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class DriveSubsystem extends SubsystemBase {
 
     //private RobotDrive robotDrive;
-    private Encoder leftDriveEncoder;
-    private Encoder rightDriveEncoder;
+    public Encoder leftDriveEncoder;
+    public Encoder rightDriveEncoder;
     private AnalogGyro gyro;
     private AHRS ahrs;
 
@@ -68,8 +68,8 @@ public class DriveSubsystem extends SubsystemBase {
         leftDriveEncoder.setDistancePerPulse(19./2048.);
         leftDriveEncoder.setMaxPeriod((.1));
         leftDriveEncoder.setMinRate(10);
-        leftDriveEncoder.setReverseDirection(false);
         leftDriveEncoder.setSamplesToAverage(5);
+        leftDriveEncoder.setReverseDirection(false);
 
 
         rightDriveEncoder = new Encoder(4, 5, false, EncodingType.k4X);
@@ -79,7 +79,6 @@ public class DriveSubsystem extends SubsystemBase {
         rightDriveEncoder.setDistancePerPulse(19./2048.);
         rightDriveEncoder.setMaxPeriod((.1));
         rightDriveEncoder.setMinRate(10);
-        rightDriveEncoder.setReverseDirection(false);
         rightDriveEncoder.setSamplesToAverage(5);
         rightDriveEncoder.setReverseDirection(true);
 
@@ -90,13 +89,13 @@ public class DriveSubsystem extends SubsystemBase {
 
         leftDriveSpeedControl = new WPI_TalonSRX(21);
         addChild("leftDriveSpeedController",leftDriveSpeedControl);
-        leftDriveSpeedControl.setInverted(false);
 
         rightDriveSpeedControl = new WPI_TalonSRX(22);
         addChild("rightDriveSpeedControl",rightDriveSpeedControl);
-        rightDriveSpeedControl.setInverted(false);
 
         leftDriveSpeedControlFollower = new WPI_VictorSPX(11);
+
+
         rightDrriveSpeedControlFollower = new WPI_VictorSPX(12);
 
         //Conigure follower Left and Right
@@ -108,8 +107,8 @@ public class DriveSubsystem extends SubsystemBase {
         rightDriveSpeedControl.setNeutralMode(NeutralMode.Coast);
 
         //Configure Full Speed take off ramp up Left and Right
-        leftDriveSpeedControl.configOpenloopRamp(0.5);
-        rightDriveSpeedControl.configOpenloopRamp(0.5);
+        leftDriveSpeedControl.configOpenloopRamp(0.25);
+        rightDriveSpeedControl.configOpenloopRamp(0.25);
 
         //Config Closed loop Left and Right
         leftDriveSpeedControl.configClosedloopRamp(0);
@@ -236,6 +235,15 @@ public class DriveSubsystem extends SubsystemBase {
             userDriveStyle = DriveStyle.Tank;
         }
 
+    }
+
+    public void ZeroEncoders() {
+        leftDriveEncoder.reset();
+        rightDriveEncoder.reset();
+    }
+
+    public void TankDriveControl(double leftSpeed, double rightSpeed) {
+        differentialDrive.tankDrive(leftSpeed, rightSpeed);
     }
 
 }
