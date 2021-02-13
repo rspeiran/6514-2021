@@ -65,7 +65,8 @@ public class DriveSubsystem extends SubsystemBase {
         addChild("LeftDriveEncoder",leftDriveEncoder);
         //leftDriveEncoder.setDistancePerPulse(1.0);
         //leftDriveEncoder.setPIDSourceType(PIDSourceType.kRate);
-        leftDriveEncoder.setDistancePerPulse(19./2048.);
+        //leftDriveEncoder.setDistancePerPulse(19./2048.);  INCHES
+        leftDriveEncoder.setDistancePerPulse(1./4096.);  //METER
         leftDriveEncoder.setMaxPeriod((.1));
         leftDriveEncoder.setMinRate(10);
         leftDriveEncoder.setSamplesToAverage(5);
@@ -76,7 +77,8 @@ public class DriveSubsystem extends SubsystemBase {
         addChild("RightDriveEncoder",rightDriveEncoder);
         //rightDriveEncoder.setDistancePerPulse(1.0);
         //rightDriveEncoder.setPIDSourceType(PIDSourceType.kRate);
-        rightDriveEncoder.setDistancePerPulse(19./2048.);
+        //rightDriveEncoder.setDistancePerPulse(19./2048.); //Inches
+        rightDriveEncoder.setDistancePerPulse(1./4096.); //Inches
         rightDriveEncoder.setMaxPeriod((.1));
         rightDriveEncoder.setMinRate(10);
         rightDriveEncoder.setSamplesToAverage(5);

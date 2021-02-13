@@ -23,6 +23,7 @@ public class DriveStraight extends CommandBase {
     private final double kP = .02;
     private double Speed = 0.7;
     private double distanceToTravel;
+   
     enum Direction {
         Forward,
         Reverse
@@ -75,6 +76,7 @@ public class DriveStraight extends CommandBase {
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
+
     }
 
     // Returns true when the command should end.
@@ -82,8 +84,7 @@ public class DriveStraight extends CommandBase {
     public boolean isFinished() {
         //What if moving backwards
         if (Math.abs(m_driveSubsystem.leftDriveEncoder.getDistance()) >= distanceToTravel || 
-                Math.abs(m_driveSubsystem.rightDriveEncoder.getDistance()) >+ distanceToTravel) {
-
+                Math.abs(m_driveSubsystem.rightDriveEncoder.getDistance()) >= distanceToTravel) {
             return true;
         }
         else {
