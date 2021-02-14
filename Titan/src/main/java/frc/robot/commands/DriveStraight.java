@@ -28,6 +28,7 @@ public class DriveStraight extends CommandBase {
         Forward,
         Reverse
     }
+    private Boolean driveDirection;
 
     public DriveStraight(DriveSubsystem subsystem, double traveldistance, boolean DriveForward) {
 
@@ -35,6 +36,8 @@ public class DriveStraight extends CommandBase {
         addRequirements(m_driveSubsystem);
 
         distanceToTravel = traveldistance;
+        driveDirection = DriveForward;
+
         
     }
 
@@ -42,7 +45,7 @@ public class DriveStraight extends CommandBase {
     @Override
     public void initialize() {
         m_driveSubsystem.ZeroEncoders();
-        m_driveSubsystem.TankDriveControl(Speed, Speed);
+        
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -56,17 +59,11 @@ public class DriveStraight extends CommandBase {
         // Drives forward continuously at half speed, using the encoders to stabilize the heading
         //What if moving backwards?
 
-        m_driveSubsystem.TankDriveControl(Speed + Correction, Speed - Correction);
-
-        //if (rightValue < leftValue) {
-        //    //    m_driveSubsystem.TankDriveControl(Speed + Correction, Speed - Correction);
-        //}
-        //else if (rightValue > leftValue)  {
-        //    m_driveSubsystem.TankDriveControl(Speed - Correction, Speed + Correction);
-        //}
-        //else {
-        //    m_driveSubsystem.TankDriveControl(Speed , Speed);
-        //}
+        if(driveDirection) {
+            m_driveSubsystem.TankDriveControl(Speed + Correction, Speed - Correction);
+        }else {
+            m_driveSubsystem.TankDriveControl(-1*(Speed + Correction), -1*(Speed - Correction));
+        }
 
         System.out.print("Final Left Speed " + Speed + Correction);
         System.out.println("   Correction " + Correction);

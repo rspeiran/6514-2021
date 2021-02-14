@@ -244,8 +244,17 @@ public class DriveSubsystem extends SubsystemBase {
         rightDriveEncoder.reset();
     }
 
+    public void ZeroGyro() {
+        ahrs.reset();
+    }
+
     public void TankDriveControl(double leftSpeed, double rightSpeed) {
         differentialDrive.tankDrive(leftSpeed, rightSpeed);
+    }
+
+    public double getGyroAngle() {
+        return ahrs.getAngle();
+       
     }
 
 }
