@@ -48,21 +48,24 @@ public class DriveRamsete extends CommandBase {
         m_driveSubsystem = subsystem;
         addRequirements(m_driveSubsystem);
 
+        // Create a voltage constraint to ensure we don't accelerate too fast
+
+
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
 
-        
-        // Create a voltage constraint to ensure we don't accelerate too fast
         var autoVoltageConstraint = 
         new DifferentialDriveVoltageConstraint(
-        new SimpleMotorFeedforward(
-        DriveConstants.ksVolts,
-        DriveConstants.kvVoltSecondsPerMeter,
-        DriveConstants.kaVoltSecondsSquaredPerMeter),
-        DriveConstants.kDriveKinematics,10);
+            new SimpleMotorFeedforward(
+                DriveConstants.ksVolts,
+                DriveConstants.kvVoltSecondsPerMeter,
+                DriveConstants.kaVoltSecondsSquaredPerMeter),
+            DriveConstants.kDriveKinematics,10);
+
+            System.out.println("autoVoltage: " + autoVoltageConstraint);
 
         // Create config for trajectory
         config = new TrajectoryConfig(
@@ -72,6 +75,8 @@ public class DriveRamsete extends CommandBase {
             .setKinematics(DriveConstants.kDriveKinematics)
             // Apply the voltage constraint
             .addConstraint(autoVoltageConstraint);
+
+            System.out.println("config: " + config);
 
         // An example trajectory to follow.  All units in meters.
         exampleTrajectory = TrajectoryGenerator.generateTrajectory(
@@ -85,37 +90,48 @@ public class DriveRamsete extends CommandBase {
             // Pass config
             config);
 
-            ramseteCommand = new RamseteCommand(
-                exampleTrajectory,
-                m_driveSubsystem::getPose,
-                new RamseteController(AutoConstants.kRamseteB, AutoConstants.kRamseteZeta),
-                new SimpleMotorFeedforward(
-                DriveConstants.ksVolts,
-                DriveConstants.kvVoltSecondsPerMeter,
-                DriveConstants.kaVoltSecondsSquaredPerMeter),
-                DriveConstants.kDriveKinematics,
-                m_driveSubsystem::getWheelSpeeds,
-                new PIDController(DriveConstants.kPDriveVel, 0, 0),
-                new PIDController(DriveConstants.kPDriveVel, 0, 0),
-    
-                // RamseteCommand passes volts to the callback
-                m_driveSubsystem::tankDriveVolts,
-                m_driveSubsystem);
+            System.out.println("Trajectory: " + exampleTrajectory);
 
+        ramseteCommand = new RamseteCommand(
+            exampleTrajectory,
+            m_driveSubsystem::getPose,
+            new RamseteController(AutoConstants.kRamseteB, AutoConstants.kRamseteZeta),
+            new SimpleMotorFeedforward(
+            DriveConstants.ksVolts,
+            DriveConstants.kvVoltSecondsPerMeter,
+            DriveConstants.kaVoltSecondsSquaredPerMeter),
+            DriveConstants.kDriveKinematics,
+            m_driveSubsystem::getWheelSpeeds,
+            new PIDController(DriveConstants.kPDriveVel, 0, 0),
+            new PIDController(DriveConstants.kPDriveVel, 0, 0),
+
+            // RamseteCommand passes volts to the callback
+            m_driveSubsystem::tankDriveVolts,
+            m_driveSubsystem);
+
+        //ramseteCommand.execute();
+
+        
         // Reset odometry to the starting pose of the trajectory.
         m_driveSubsystem.resetOdometry(exampleTrajectory.getInitialPose());
+
+        //ramseteCommand.execute();
+        //ramseteCommand.withTimeout(60);
+        //ramseteCommand.execute();
+        ramseteCommand.andThen(() -> m_driveSubsystem.tankDriveVolts(0, 0));
+        
 
     }
 
     // Called every time the scheduler runs while the command is scheduled.
-    @Override
-    public void execute() {
+    //@Override
+    //public void execute() {
         // Run path following command, then stop at the end.
         //return ramseteCommand.andThen(() -> m_driveSubsystem.tankDriveVolts(0, 0));
         //ramseteCommand.andThen(() -> m_driveSubsystem.tankDriveVolts(0, 0));
-        ramseteCommand.execute();
+        //ramseteCommand.initialize();
         
-    }
+    //}
 
 
     // Called once the command ends or is interrupted.
@@ -125,13 +141,14 @@ public class DriveRamsete extends CommandBase {
     }
 
     // Returns true when the command should end.
-    @Override
-    public boolean isFinished() {
-            return ramseteCommand.isFinished();
-    }
+    //@Override
+    //public boolean isFinished() {
+    //        return ramseteCommand.isFinished();
+    //}
 
     @Override
     public boolean runsWhenDisabled() {
+        m_driveSubsystem.tankDriveVolts(0, 0);
         return false;
     }
 }

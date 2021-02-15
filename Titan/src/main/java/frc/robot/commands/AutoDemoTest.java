@@ -18,6 +18,24 @@ import frc.robot.subsystems.ControlPanelSubsystem;
 import frc.robot.subsystems.FuelShooterPIDSubsystem;
 import frc.robot.subsystems.FuelDeliverySubSystem;
 
+import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpilibj.controller.RamseteController;
+import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.AutoConstants;
+import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.geometry.Translation2d;
+import edu.wpi.first.wpilibj.trajectory.Trajectory;
+import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
+import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
+import edu.wpi.first.wpilibj.trajectory.constraint.DifferentialDriveVoltageConstraint;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.RamseteCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import java.util.List;
+
 
 /**
  *
@@ -60,9 +78,10 @@ public class AutoDemoTest extends SequentialCommandGroup {
             //      )    
             //  );
             new FuelReleaseExtend(m_fuelDeliverySubSystem),
+            new DriveReset(m_driveSubsystem),
             new WaitCommand(1),
-            new FuelReleaseRetract(m_fuelDeliverySubSystem),
-            new WaitCommand(1)
+            //new RamseteCommand_Demo(),
+            new FuelReleaseRetract(m_fuelDeliverySubSystem)
         );
 
     }
