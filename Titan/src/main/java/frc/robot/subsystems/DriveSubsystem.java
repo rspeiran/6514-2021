@@ -281,6 +281,9 @@ public class DriveSubsystem extends SubsystemBase {
         return ahrs.getAngle();
        
     }
+    public double getAngleRate() {
+        return ahrs.getRate();
+    }
 
       /**
    * Returns the currently-estimated pose of the robot.

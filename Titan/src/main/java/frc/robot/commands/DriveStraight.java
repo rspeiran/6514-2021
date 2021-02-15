@@ -20,9 +20,12 @@ public class DriveStraight extends CommandBase {
 
     private final DriveSubsystem m_driveSubsystem;
 
-    private final double kP = .02;
-    private double Speed = 0.7;
+    private final double kP = .0255;
+    private double Speed = 0.75;
     private double distanceToTravel;
+
+    private double leftValue;
+    private double rightValue;
    
     enum Direction {
         Forward,
@@ -52,8 +55,8 @@ public class DriveStraight extends CommandBase {
     @Override
     public void execute() {
         // Assuming no wheel slip, the difference in encoder distances is proportional to the heading error
-        double leftValue =  m_driveSubsystem.leftDriveEncoder.getDistance();
-        double rightValue =  m_driveSubsystem.rightDriveEncoder.getDistance();
+        leftValue =  m_driveSubsystem.leftDriveEncoder.getDistance();
+        rightValue =  m_driveSubsystem.rightDriveEncoder.getDistance();
         double error = leftValue - rightValue;
         double Correction = (kP * error);
         // Drives forward continuously at half speed, using the encoders to stabilize the heading

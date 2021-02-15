@@ -78,6 +78,7 @@ public class RobotContainer {
         SmartDashboard.putData("ControlPanelAuto", new ControlPanelAuto(m_controlPanelSubsystem));
         SmartDashboard.putData("DriveTeleop", new DriveTeleop());
         SmartDashboard.putData("DriveStraight", new DriveStraight(m_driveSubsystem, 10.000, true));
+        SmartDashboard.putData("DriveReverse", new DriveStraight(m_driveSubsystem, 10.000, false));
         SmartDashboard.putData("Drive 45 Right", new DriveAngle(m_driveSubsystem, 45.));
         SmartDashboard.putData("Drive -45 Left", new DriveAngle(m_driveSubsystem, -45.));
         SmartDashboard.putData("DriveReset", new DriveReset(m_driveSubsystem));

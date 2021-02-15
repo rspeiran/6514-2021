@@ -25,8 +25,8 @@ public class DriveAngle extends CommandBase {
     private double TargetAngle = 0;
     private double Correction = 0;
     private double Error = 0;
-    private static double MinSpeed = 0.15;
-    private static double kP = .025;  //1/45 to start.  1/25
+    private static double MinSpeed = 0.20;
+    private static double kP = .0255;  //1/45 to start.  1/25
 
 
 
@@ -50,7 +50,7 @@ public class DriveAngle extends CommandBase {
     @Override
     public void execute() {
         Error = TargetAngle - m_driveSubsystem.getGyroAngle();
-        Correction = MinSpeed + (kP * Error);
+        Correction = MinSpeed + Math.abs(kP * Error);
         // Drives forward continuously at half speed, using the encoders to stabilize the heading
         //What if moving backwards?
 
@@ -62,6 +62,7 @@ public class DriveAngle extends CommandBase {
         System.out.print(" TargetAngle " + TargetAngle);
         System.out.print(" Error " + Error);
         System.out.print(" Correction " + Correction);
+        System.out.print(" Angle Rate " + m_driveSubsystem.getAngleRate());
         System.out.println(" CurrentAngle " + m_driveSubsystem.getGyroAngle());
         
         m_driveSubsystem.TankDriveControl(-Correction, Correction);
