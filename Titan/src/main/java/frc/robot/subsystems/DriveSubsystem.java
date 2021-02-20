@@ -112,9 +112,8 @@ public class DriveSubsystem extends SubsystemBase {
         rightDriveSpeedControl = new WPI_TalonSRX(22);
         addChild("rightDriveSpeedControl",rightDriveSpeedControl);
 
+        //Establish Drive followers
         leftDriveSpeedControlFollower = new WPI_VictorSPX(11);
-
-
         rightDrriveSpeedControlFollower = new WPI_VictorSPX(12);
 
         //Conigure follower Left and Right
@@ -122,20 +121,26 @@ public class DriveSubsystem extends SubsystemBase {
         rightDrriveSpeedControlFollower.follow(rightDriveSpeedControl);
 
         //Configure Breaking Left and Right
-        leftDriveSpeedControl.setNeutralMode(NeutralMode.Coast);
-        rightDriveSpeedControl.setNeutralMode(NeutralMode.Coast);
+        //leftDriveSpeedControl.setNeutralMode(NeutralMode.Coast);
+        //rightDriveSpeedControl.setNeutralMode(NeutralMode.Coast);
+        leftDriveSpeedControl.setNeutralMode(NeutralMode.Brake);
+        rightDriveSpeedControl.setNeutralMode(NeutralMode.Brake);
+
 
         //Configure Full Speed take off ramp up Left and Right
-        leftDriveSpeedControl.configOpenloopRamp(0.25);
-        rightDriveSpeedControl.configOpenloopRamp(0.25);
+        leftDriveSpeedControl.configOpenloopRamp(0.50);
+        rightDriveSpeedControl.configOpenloopRamp(0.50);
 
         //Config Closed loop Left and Right
-        leftDriveSpeedControl.configClosedloopRamp(0);
-        rightDriveSpeedControl.configClosedloopRamp(0);
+        leftDriveSpeedControl.configClosedloopRamp(0.50);
+        rightDriveSpeedControl.configClosedloopRamp(0.50);
 
         //Config Voltage comp Left andRight
         leftDriveSpeedControl.enableVoltageCompensation(true);
         rightDriveSpeedControl.enableVoltageCompensation(true);
+
+        leftDriveSpeedControl.configVoltageCompSaturation(12.0);
+        rightDriveSpeedControl.configVoltageCompSaturation(12.0);
 
         differentialDrive = new DifferentialDrive(leftDriveSpeedControl, rightDriveSpeedControl);
 
@@ -219,7 +224,7 @@ public class DriveSubsystem extends SubsystemBase {
 
         // Odometry class for tracking robot pose
 
-        resetEncoders();
+        //resetEncoders();
         m_odometry = new DifferentialDriveOdometry(ahrs.getRotation2d());
      
 
@@ -340,6 +345,7 @@ public class DriveSubsystem extends SubsystemBase {
     public void resetEncoders() {
         leftDriveEncoder.reset();
         rightDriveEncoder.reset();
+        ahrs.reset();
     }
 
     /**

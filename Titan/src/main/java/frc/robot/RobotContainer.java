@@ -93,8 +93,8 @@ public class RobotContainer {
         SmartDashboard.putData("ControlPanelStop", new ControlPanelStop(m_controlPanelSubsystem));
         SmartDashboard.putData("ControlPanelAuto", new ControlPanelAuto(m_controlPanelSubsystem));
         SmartDashboard.putData("DriveTeleop", new DriveTeleop());
-        SmartDashboard.putData("DriveStraight", new DriveStraight(m_driveSubsystem, 2.000, true));
-        SmartDashboard.putData("DriveReverse", new DriveStraight(m_driveSubsystem, 2.000, false));
+        SmartDashboard.putData("DriveStraight", new DriveStraight(m_driveSubsystem, 1.000, true));
+        SmartDashboard.putData("DriveReverse", new DriveStraight(m_driveSubsystem, 1.000, false));
         SmartDashboard.putData("Drive 45 Right", new DriveAngle(m_driveSubsystem, 45.));
         SmartDashboard.putData("Drive -45 Left", new DriveAngle(m_driveSubsystem, -45.));
         SmartDashboard.putData("DriveReset", new DriveReset(m_driveSubsystem));
@@ -293,9 +293,11 @@ public class RobotContainer {
                 // Start at the origin facing the +X direction
                 new Pose2d(0, 0, new Rotation2d(0)),
                 // Pass through these two interior waypoints, making an 's' curve path
-                List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
+                List.of(
+                    new Translation2d(1, 0), 
+                    new Translation2d(1.5, 0)),
                 // End 3 meters straight ahead of where we started, facing forward
-                new Pose2d(3, 0, new Rotation2d(0)),
+                new Pose2d(2, 0, new Rotation2d(0)),
                 // Pass config
                 config);
     

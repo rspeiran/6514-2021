@@ -25,8 +25,8 @@ public class DriveAngle extends CommandBase {
     private double TargetAngle = 0;
     private double Correction = 0;
     private double Error = 0;
-    private static double MinSpeed = 0.20;
-    private static double kP = .0255;  //1/45 to start.  1/25
+    private static double MinSpeed = 0.15;
+    private static double kP = .003;  //1/45 to start.  1/25
 
 
 
@@ -36,11 +36,13 @@ public class DriveAngle extends CommandBase {
         addRequirements(m_driveSubsystem);
 
         RotateAngle = RotateToAngle;
+        m_driveSubsystem.resetEncoders();
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        
         StartAngle = m_driveSubsystem.getGyroAngle();
         TargetAngle = m_driveSubsystem.getGyroAngle() + RotateAngle;
         m_driveSubsystem.TankDriveControl(0,0);  //Ensure that the robot stops or stopping.
@@ -50,12 +52,17 @@ public class DriveAngle extends CommandBase {
     @Override
     public void execute() {
         Error = TargetAngle - m_driveSubsystem.getGyroAngle();
-        Correction = MinSpeed + Math.abs(kP * Error);
+        //Correction = MinSpeed + Math.abs(kP * Error);
+        Correction =  (kP * Error);
         // Drives forward continuously at half speed, using the encoders to stabilize the heading
         //What if moving backwards?
 
-        if(Math.abs(Correction) > 1 ) { 
-            Correction = 1.0;
+        //Limit Rotation Speed
+        if(Correction > 0.65 ) { 
+            Correction = 0.65;
+        } 
+        else if (Correction < 0.65) {
+            Correction = -0.65;
         }
 
         System.out.print("Start " + StartAngle);
@@ -79,7 +86,7 @@ public class DriveAngle extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        if (Math.abs(Error) <= 3) {
+        if (Math.abs(TargetAngle - m_driveSubsystem.getGyroAngle()) <= 1) {
             return true;
         } else {
             return false;

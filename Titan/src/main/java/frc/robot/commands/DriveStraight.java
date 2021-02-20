@@ -26,6 +26,8 @@ public class DriveStraight extends CommandBase {
 
     private double leftValue;
     private double rightValue;
+    private double error;
+    private double correction;
    
     enum Direction {
         Forward,
@@ -57,19 +59,19 @@ public class DriveStraight extends CommandBase {
         // Assuming no wheel slip, the difference in encoder distances is proportional to the heading error
         leftValue =  m_driveSubsystem.leftDriveEncoder.getDistance();
         rightValue =  m_driveSubsystem.rightDriveEncoder.getDistance();
-        double error = leftValue - rightValue;
-        double Correction = (kP * error);
+        error = leftValue - rightValue;
+        correction = (kP * error);
         // Drives forward continuously at half speed, using the encoders to stabilize the heading
         //What if moving backwards?
 
         if(driveDirection) {
-            m_driveSubsystem.TankDriveControl(Speed + Correction, Speed - Correction);
+            m_driveSubsystem.TankDriveControl(Speed + correction, Speed - correction);
         }else {
-            m_driveSubsystem.TankDriveControl(-1*(Speed + Correction), -1*(Speed - Correction));
+            m_driveSubsystem.TankDriveControl(-1*(Speed + correction), -1*(Speed - correction));
         }
 
-        System.out.print("Final Left Speed " + Speed + Correction);
-        System.out.println("   Correction " + Correction);
+        System.out.print("Final Left Speed " + Speed + correction);
+        System.out.println(" Correction " + correction);
 
     }
 
@@ -84,7 +86,8 @@ public class DriveStraight extends CommandBase {
     public boolean isFinished() {
         //What if moving backwards
         if (Math.abs(m_driveSubsystem.leftDriveEncoder.getDistance()) >= distanceToTravel || 
-                Math.abs(m_driveSubsystem.rightDriveEncoder.getDistance()) >= distanceToTravel) {
+                Math.abs(m_driveSubsystem.rightDriveEncoder.getDistance()) >= distanceToTravel || 
+                Math.abs(error) >= .25) {
             return true;
         }
         else {

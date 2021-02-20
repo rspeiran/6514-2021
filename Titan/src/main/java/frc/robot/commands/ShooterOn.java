@@ -34,7 +34,7 @@ public class ShooterOn extends CommandBase {
         System.out.println("Shooter On");
  
         m_FuelShooterPIDSubsystem.ShooterOn();
-        m_FuelShooterPIDSubsystem.setSetpoint(315);
+        m_FuelShooterPIDSubsystem.setSetpoint(350);
         m_FuelShooterPIDSubsystem.enable();
  
     }
