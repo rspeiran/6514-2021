@@ -25,8 +25,8 @@ public class DriveAngle extends CommandBase {
     private double TargetAngle = 0;
     private double Correction = 0;
     private double Error = 0;
-    private static double MinSpeed = 0.15;
-    private static double kP = .003;  //1/45 to start.  1/25
+    private static double MinSpeed = 0.35;
+    private static double kP = .045;  //1/45 to start.  1/25
 
 
 
@@ -36,13 +36,13 @@ public class DriveAngle extends CommandBase {
         addRequirements(m_driveSubsystem);
 
         RotateAngle = RotateToAngle;
-        m_driveSubsystem.resetEncoders();
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        
+        m_driveSubsystem.resetEncoders();
+
         StartAngle = m_driveSubsystem.getGyroAngle();
         TargetAngle = m_driveSubsystem.getGyroAngle() + RotateAngle;
         m_driveSubsystem.TankDriveControl(0,0);  //Ensure that the robot stops or stopping.
@@ -57,20 +57,31 @@ public class DriveAngle extends CommandBase {
         // Drives forward continuously at half speed, using the encoders to stabilize the heading
         //What if moving backwards?
 
-        //Limit Rotation Speed
+        //Limit Max Rotation Speed
         if(Correction > 0.65 ) { 
             Correction = 0.65;
         } 
-        else if (Correction < 0.65) {
+        else if (Correction < -0.65) {
             Correction = -0.65;
         }
+
+        //if(Math.abs(m_driveSubsystem.getAngleRate()) < 0.01) {
+        //    if (Correction > 0)
+        //    {
+        //        Correction = Correction + MinSpeed;
+        //    }
+        //    else {
+        //        Correction = -Correction + (-1 * MinSpeed);
+        //    }
+        //}
+        
 
         System.out.print("Start " + StartAngle);
         System.out.print(" TargetAngle " + TargetAngle);
         System.out.print(" Error " + Error);
         System.out.print(" Correction " + Correction);
-        System.out.print(" Angle Rate " + m_driveSubsystem.getAngleRate());
-        System.out.println(" CurrentAngle " + m_driveSubsystem.getGyroAngle());
+        System.out.print(" Angle Rate " + m_driveSubsystem.getHeading());
+        System.out.println(" CurrentAngle " + m_driveSubsystem.getHeading());
         
         m_driveSubsystem.TankDriveControl(-Correction, Correction);
 
@@ -86,7 +97,13 @@ public class DriveAngle extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        if (Math.abs(TargetAngle - m_driveSubsystem.getGyroAngle()) <= 1) {
+        
+        if  (Math.abs(TargetAngle - m_driveSubsystem.getHeading()) <= 0.5
+            && (Math.abs(m_driveSubsystem.getHeading()) < 0.15)
+            || Math.abs(Correction) < 0.31) {
+
+            m_driveSubsystem.TankDriveControl(0, 0);
+            System.out.println(" Drive Angle Finished: " + m_driveSubsystem.getHeading());
             return true;
         } else {
             return false;

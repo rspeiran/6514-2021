@@ -21,10 +21,11 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Ultrasonic;
+import edu.wpi.first.wpilibj.Counter;
 //import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.Spark;
-
+import edu.wpi.first.wpilibj.DigitalInput;
 /**
  *
  */
@@ -38,7 +39,12 @@ public class FuelDeliverySubSystem extends SubsystemBase {
     private Solenoid fuelReleaseSolenoid;
 
     private Spark ConveyorSpeedController;
-    private Spark ShooterBottomMotor;
+    //private Spark ShooterBottomMotor;
+    private Spark ShooterAdjustor;
+    private Counter ShooterAngleCounter;
+    private DigitalInput ShooterLimitExtend;
+    private DigitalInput ShooterLimitRetract;
+
     private Spark HippoMotorSpeedController;
 
     private double HippoIntakeSpeed = .45;
@@ -94,7 +100,15 @@ public class FuelDeliverySubSystem extends SubsystemBase {
         //fuelDetectorUltrasonic.set
 
         //ShooterTopMotor = new Spark(0);
-        ShooterBottomMotor = new Spark(1);
+        //ShooterBottomMotor = new Spark(1);
+        ShooterAdjustor = new Spark(1);
+        ShooterAngleCounter = new Counter(6);
+        addChild("Shooter Angle Counter ", ShooterAngleCounter);
+
+        ShooterLimitExtend = new DigitalInput(7);
+        //ShooterLimitRetract = new DigitalInput(7);
+    
+
         ConveyorSpeedController = new Spark(2);
         HippoMotorSpeedController = new Spark(3);
 
@@ -121,6 +135,13 @@ public class FuelDeliverySubSystem extends SubsystemBase {
             HippoMotorOff();
             ConveyorStatus = ConveyorState.Idle;
         }
+
+        if (ShooterLimitExtend.get()) {
+            ShooterPositionMaxLimitHit();
+        }
+        //if (ShooterLimitRetract.get()) {
+        //    ShooterPostitionMinLimitHit();
+        //}
 
     }
 
@@ -229,19 +250,52 @@ public class FuelDeliverySubSystem extends SubsystemBase {
 
     public void ShooterOn() {
         //ShooterTopMotor.set(ShooterSpeed);
-        ShooterBottomMotor.set(0); //Keep Stopped
+        //ShooterBottomMotor.set(0); //Keep Stopped
 
     }
 
     public void ShooterOff() {
         //ShooterTopMotor.set(0);
-        ShooterBottomMotor.set(0);
+        //ShooterBottomMotor.set(0);
     }
 
     public double DetectFuelAtFeeder() {
         return fuelDetectorUltrasonic.getRangeInches();
     }
-  
+
+    public void ShooterAngleIncrease() {
+        ShooterAdjustor.set(1);
+        ShooterAngleCounter.setReverseDirection(false);
+
+    }
+    public void ShooterAngleDecrease() {
+        ShooterAdjustor.set(-1);
+        ShooterAngleCounter.setReverseDirection(true);
+
+    }
+    public void ShooterAngleHold() {
+        ShooterAdjustor.set(0);
+    }
+
+    public double ShooterPosition() {
+        return ShooterAngleCounter.get();
+    }
+
+    public void ShooterPositionReset() {
+        ShooterAngleCounter.reset();
+    }
+
+    public void ShooterPositionMaxLimitHit() {
+        ShooterAdjustor.set(0);
+        //Set counter at max....
+        ShooterAdjustor.setPosition(999999);
+
+    }
+    public void ShooterPostitionMinLimitHit() {
+        ShooterAngleCounter.reset();
+        ShooterAdjustor.set(0);
+    }
+
 
 
 }

@@ -132,15 +132,15 @@ public class DriveSubsystem extends SubsystemBase {
         rightDriveSpeedControl.configOpenloopRamp(0.50);
 
         //Config Closed loop Left and Right
-        leftDriveSpeedControl.configClosedloopRamp(0.50);
-        rightDriveSpeedControl.configClosedloopRamp(0.50);
+        //leftDriveSpeedControl.configClosedloopRamp(0.50);
+        //rightDriveSpeedControl.configClosedloopRamp(0.50);
 
         //Config Voltage comp Left andRight
         leftDriveSpeedControl.enableVoltageCompensation(true);
         rightDriveSpeedControl.enableVoltageCompensation(true);
 
-        leftDriveSpeedControl.configVoltageCompSaturation(12.0);
-        rightDriveSpeedControl.configVoltageCompSaturation(12.0);
+        leftDriveSpeedControl.configVoltageCompSaturation(11.5);
+        rightDriveSpeedControl.configVoltageCompSaturation(11.5);
 
         differentialDrive = new DifferentialDrive(leftDriveSpeedControl, rightDriveSpeedControl);
 
@@ -272,6 +272,7 @@ public class DriveSubsystem extends SubsystemBase {
     public void ZeroEncoders() {
         leftDriveEncoder.reset();
         rightDriveEncoder.reset();
+        ahrs.reset();
     }
 
     public void ZeroGyro() {

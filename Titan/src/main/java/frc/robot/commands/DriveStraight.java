@@ -21,13 +21,17 @@ public class DriveStraight extends CommandBase {
     private final DriveSubsystem m_driveSubsystem;
 
     private final double kP = .0255;
-    private double Speed = 0.75;
+    private final double kPbyAngle = 0.0255;
+    private double Speed;
     private double distanceToTravel;
 
     private double leftValue;
     private double rightValue;
     private double error;
     private double correction;
+
+    private double errorByAngle;
+    private double correctionByAngle;
    
     enum Direction {
         Forward,
@@ -50,6 +54,7 @@ public class DriveStraight extends CommandBase {
     @Override
     public void initialize() {
         m_driveSubsystem.ZeroEncoders();
+        Speed = 0.75;
         
     }
 
@@ -61,17 +66,48 @@ public class DriveStraight extends CommandBase {
         rightValue =  m_driveSubsystem.rightDriveEncoder.getDistance();
         error = leftValue - rightValue;
         correction = (kP * error);
+
+        errorByAngle = m_driveSubsystem.getHeading();
+        correctionByAngle = kPbyAngle * errorByAngle;
+
+        if (correctionByAngle > 0.25) {
+            correctionByAngle = 0.25;
+        }
+        if (correctionByAngle < -0.25) {
+            correctionByAngle = -0.25;
+        }
+
+        //Slow down near the end.
+        //if ((Math.abs(distanceToTravel) - Math.abs(m_driveSubsystem.leftDriveEncoder.getDistance()) < 0.5)
+        //    || (Math.abs(distanceToTravel) - Math.abs(m_driveSubsystem.rightDriveEncoder.getDistance()) < 0.5)) {
+        //        Speed = 0.45;
+        //}
+        //if (Speed < 0) {
+        //    Speed = 0;
+        //}
+
         // Drives forward continuously at half speed, using the encoders to stabilize the heading
         //What if moving backwards?
 
         if(driveDirection) {
-            m_driveSubsystem.TankDriveControl(Speed + correction, Speed - correction);
+            //m_driveSubsystem.TankDriveControl(Speed + correction, Speed - correction);
+            m_driveSubsystem.TankDriveControl(Speed-correctionByAngle, Speed + correctionByAngle);
         }else {
-            m_driveSubsystem.TankDriveControl(-1*(Speed + correction), -1*(Speed - correction));
+            //m_driveSubsystem.TankDriveControl(-1*(Speed + correction), -1*(Speed - correction));
+            m_driveSubsystem.TankDriveControl(-1 * (Speed + correctionByAngle), -1 * (Speed - correctionByAngle));
+
         }
 
-        System.out.print("Final Left Speed " + Speed + correction);
-        System.out.println(" Correction " + correction);
+        //System.out.print("Final Left Speed " + (Speed + correction));
+        //System.out.print(" Right Speed " + (Speed - correction));
+        //System.out.println(" Correction " + correction);
+
+        System.out.print("Final Left: " + (Speed + correctionByAngle));
+        System.out.print(" Right: " + (Speed - correctionByAngle));
+        System.out.println(" Correction: " + correctionByAngle);
+
+        
+
 
     }
 
@@ -84,10 +120,9 @@ public class DriveStraight extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        //What if moving backwards
         if (Math.abs(m_driveSubsystem.leftDriveEncoder.getDistance()) >= distanceToTravel || 
-                Math.abs(m_driveSubsystem.rightDriveEncoder.getDistance()) >= distanceToTravel || 
-                Math.abs(error) >= .25) {
+            Math.abs(m_driveSubsystem.rightDriveEncoder.getDistance()) >= distanceToTravel) {
+            // || Math.abs(error) >= .25) {
             return true;
         }
         else {
