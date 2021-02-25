@@ -293,10 +293,12 @@ public class RobotContainer {
                 new Pose2d(0, 0, new Rotation2d(0)),
                 // Pass through these interior waypoints
                 List.of(
-                    new Translation2d(1, 0), 
-                    new Translation2d(1.5, 0)),
+                    new Translation2d(1.0, 0.0),
+                    new Translation2d(1.50, 0.0),
+                    //new Translation2d(2.00, 0.0),
+                    new Translation2d(2.75, 2.0)),
                 // End 3 location and rotation
-                new Pose2d(2, 0, new Rotation2d(0)),
+                new Pose2d(2.75, 2.25, new Rotation2d(0)),
                 // Pass config
                 config);
     

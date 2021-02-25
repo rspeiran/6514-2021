@@ -22,24 +22,24 @@ import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 public class Constants {
 
     public static final class DriveConstants {
-        public static final int kLeftMotor1Port = 0;
-        public static final int kLeftMotor2Port = 1;
-        public static final int kRightMotor1Port = 2;
-        public static final int kRightMotor2Port = 3;
+        //public static final int kLeftMotor1Port = 0;
+        //public static final int kLeftMotor2Port = 1;
+        //public static final int kRightMotor1Port = 2;
+        //public static final int kRightMotor2Port = 3;
     
-        public static final int[] kLeftEncoderPorts = new int[] {0, 1};
-        public static final int[] kRightEncoderPorts = new int[] {2, 3};
-        public static final boolean kLeftEncoderReversed = false;
-        public static final boolean kRightEncoderReversed = true;
+        //public static final int[] kLeftEncoderPorts = new int[] {0, 1};
+        //public static final int[] kRightEncoderPorts = new int[] {2, 3};
+        //public static final boolean kLeftEncoderReversed = false;
+        //public static final boolean kRightEncoderReversed = true;
     
-        public static final double kTrackwidthMeters = 0.69;
+        public static final double kTrackwidthMeters = 0.6731;
         public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(kTrackwidthMeters);
     
-        public static final int kEncoderCPR = 1024;
-        public static final double kWheelDiameterMeters = 0.15;
+        //public static final int kEncoderCPR = 1024;
+        //public static final double kWheelDiameterMeters = 0.1524;
 
         // Assumes the encoders are directly mounted on the wheel shafts
-        public static final double kEncoderDistancePerPulse = (kWheelDiameterMeters * Math.PI) / (double) kEncoderCPR;
+        //public static final double kEncoderDistancePerPulse = (kWheelDiameterMeters * Math.PI) / (double) kEncoderCPR;
     
         // These are example values only - DO NOT USE THESE FOR YOUR OWN ROBOT!
         // These characterization values MUST be determined either experimentally or theoretically
@@ -51,11 +51,11 @@ public class Constants {
         public static final double kaVoltSecondsSquaredPerMeter = 0.2;
     
         // Example value only - as above, this must be tuned for your drive!
-        public static final double kPDriveVel = 8.5;
+        public static final double kPDriveVel = 6.5;
     }
     
     public static final class OIConstants {
-        public static final int kDriverControllerPort = 1;
+        //public static final int kDriverControllerPort = 1;
     }
     
     public static final class AutoConstants {
