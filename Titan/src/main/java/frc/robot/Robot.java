@@ -17,6 +17,7 @@ import edu.wpi.first.hal.HAL;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpiutil.net.PortForwarder;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -37,6 +38,12 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotInit() {
+
+        PortForwarder.add(8080, "wpilibpi.local", 80);
+        PortForwarder.add(8081, "wpilibpi.local", 1181);
+        PortForwarder.add(8082, "wpilibpi.local", 1182);
+
+
         // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
         // autonomous chooser on the dashboard.
         m_robotContainer = RobotContainer.getInstance();
