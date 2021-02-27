@@ -12,7 +12,7 @@ public class Waypoints {
     public static final Translation2d[] barrel_racing_path = {
         new Translation2d(1, 2),
         new Translation2d(3, 4),
-        new Translation2d(5, 6)
+        new Translation2d(5, 7)
     };
 
     public static final Translation2d[] barrel_racing_path_end = {new Translation2d(0, 0)};
