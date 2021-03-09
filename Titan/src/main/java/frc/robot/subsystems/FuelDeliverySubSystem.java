@@ -14,6 +14,7 @@ package frc.robot.subsystems;
 
 //import frc.robot.commands.*;
 //import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import frc.robot.Constants;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import edu.wpi.first.wpilibj.Compressor;
@@ -26,6 +27,7 @@ import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.DigitalInput;
+
 /**
  *
  */
@@ -41,9 +43,11 @@ public class FuelDeliverySubSystem extends SubsystemBase {
     private Spark ConveyorSpeedController;
     //private Spark ShooterBottomMotor;
     private Spark ShooterAdjustor;
-    private Counter ShooterAngleCounter;
+    public Counter ShooterAngleCounter;
     private DigitalInput ShooterLimitExtend;
     private DigitalInput ShooterLimitRetract;
+
+    private DigitalInput ConveyorActivate;
 
     private Spark HippoMotorSpeedController;
 
@@ -54,7 +58,7 @@ public class FuelDeliverySubSystem extends SubsystemBase {
     //private double ShooterTopMotorSpeed = 0.65;//0.50; //Start .42
     //private double ShooterBottomMotorSpped = 0.65; //0.60; //Start 0.42  //Start .46
   
-    private double ConveyorMotorSpeed = 1.00;
+    private double ConveyorMotorSpeed = .80;
     //private double ShooterSpeed = 0.50;
   
     private Ultrasonic fuelDetectorUltrasonic;
@@ -67,6 +71,19 @@ public class FuelDeliverySubSystem extends SubsystemBase {
         Up,
         Down
     }
+
+    private enum ShooterAngleDirection {
+        Up,
+        Down,
+        Stop
+    }
+
+    private ShooterAngleDirection ShooterMovingDirection = ShooterAngleDirection.Stop;
+    private double ShooterLastCounter;
+    public double ShooterCalculatedCounter;
+
+    public Constants.AnglePositionAndPower SelectedPosition;
+
     private ConveyorState ConveyorStatus = ConveyorState.Idle;
 
     /**
@@ -90,10 +107,10 @@ public class FuelDeliverySubSystem extends SubsystemBase {
         //addChild("HippoSpeedController",hippoSpeedController);
         //hippoSpeedController.setInverted(false);
 
-        fuelDetectorUltrasonic = new Ultrasonic(8, 9);
-        addChild("FuelDetectorUltrasonic",fuelDetectorUltrasonic);
+        //fuelDetectorUltrasonic = new Ultrasonic(8, 9);
+        //addChild("FuelDetectorUltrasonic",fuelDetectorUltrasonic);
 
-        fuelDetectorUltrasonic.setAutomaticMode(true);
+        //fuelDetectorUltrasonic.setAutomaticMode(true);
         
         //fuelDetectorUltrasonic.setDistanceUnits(Unit.kInches);
         //fuelDetectorUltrasonic.setEnabled(true);
@@ -102,15 +119,19 @@ public class FuelDeliverySubSystem extends SubsystemBase {
         //ShooterTopMotor = new Spark(0);
         //ShooterBottomMotor = new Spark(1);
         ShooterAdjustor = new Spark(1);
-        ShooterAngleCounter = new Counter(6);
+
+        ShooterAngleCounter = new Counter(7);
         addChild("Shooter Angle Counter ", ShooterAngleCounter);
 
-        ShooterLimitExtend = new DigitalInput(7);
+        ShooterLimitRetract = new DigitalInput(6);
         //ShooterLimitRetract = new DigitalInput(7);
     
+        ConveyorActivate = new DigitalInput(9);
 
         ConveyorSpeedController = new Spark(2);
         HippoMotorSpeedController = new Spark(3);
+
+        SelectedPosition = Constants.AnglePositionAndPower.REINTROZONE;
 
     }
     //public void initDefaultCommand() {
@@ -122,23 +143,58 @@ public class FuelDeliverySubSystem extends SubsystemBase {
     public void periodic() {
         // This method will be called once per scheduler run
         //ShooterEncoder.getRate();
-        if (DetectFuelAtFeeder() < 4.2) {
+        //if (DetectFuelAtFeeder() < 4.2) {
+        //    FuelAtIntakeDetected = true;
+        //    //ConveyorUp();
+        //    //HippoRetractMech();
+        //    //HippoMotorOn();
+        //    ConveyorStatus = ConveyorState.Auto;
+        //    
+        //    //FuelCount = FuelCount +1;
+        //} else if (ConveyorStatus == ConveyorState.Auto && DetectFuelAtFeeder() >= 4.2   ) {
+        //    ConveyorOff();
+        //    HippoMotorOff();
+        //    ConveyorStatus = ConveyorState.Idle;
+        //}
+
+        if(!ConveyorActivate.get()) {
             FuelAtIntakeDetected = true;
-            //ConveyorUp();
-            //HippoRetractMech();
-            //HippoMotorOn();
+            ConveyorUp();
+            HippoRetractMech();
+            HippoMotorOn();
             ConveyorStatus = ConveyorState.Auto;
-            
-            //FuelCount = FuelCount +1;
-        } else if (ConveyorStatus == ConveyorState.Auto && DetectFuelAtFeeder() >= 4.2   ) {
+
+        }else if (ConveyorStatus == ConveyorState.Auto) {
             ConveyorOff();
             HippoMotorOff();
             ConveyorStatus = ConveyorState.Idle;
+
         }
 
-        if (ShooterLimitExtend.get()) {
-            ShooterPositionMaxLimitHit();
+        if (!ShooterLimitRetract.get() ) {
+            System.out.println("Limit Pressed");
+            ShooterPostitionMinLimitHit();
         }
+
+        if (ShooterLastCounter != ShooterAngleCounter.get()) {
+            if (ShooterMovingDirection == ShooterAngleDirection.Up){
+                ShooterCalculatedCounter = ShooterCalculatedCounter + Math.abs(ShooterAngleCounter.get() - ShooterLastCounter);
+                ShooterLastCounter = ShooterAngleCounter.get();
+
+            } else if (ShooterMovingDirection == ShooterAngleDirection.Down) {
+                ShooterCalculatedCounter = ShooterCalculatedCounter - Math.abs(ShooterAngleCounter.get() - ShooterLastCounter);
+                ShooterLastCounter = ShooterAngleCounter.get();
+
+            } else {
+                //Should not get here.
+            }
+        }
+
+        //System.out.print("Angle Counter ");
+        //System.out.print(ShooterAngleCounter.get());
+        //System.out.print(" Counter ");
+        //System.out.println(ShooterCalculatedCounter);
+
         //if (ShooterLimitRetract.get()) {
         //    ShooterPostitionMinLimitHit();
         //}
@@ -165,7 +221,7 @@ public class FuelDeliverySubSystem extends SubsystemBase {
     }
 
     public void HippoMotorOn() {
-        HippoMotorSpeedController.set(-1*HippoIntakeSpeed);
+        HippoMotorSpeedController.set(HippoIntakeSpeed);
     }
 
     public void HippoMotorOff() {
@@ -173,7 +229,7 @@ public class FuelDeliverySubSystem extends SubsystemBase {
     }
 
     public void HippoMotorReverseOn() {
-        HippoMotorSpeedController.set(HippoIntakeSpeed);
+        HippoMotorSpeedController.set(-1*HippoIntakeSpeed);
     }
   
     //public void HippoMotorReverse() {
@@ -259,43 +315,54 @@ public class FuelDeliverySubSystem extends SubsystemBase {
         //ShooterBottomMotor.set(0);
     }
 
-    public double DetectFuelAtFeeder() {
-        return fuelDetectorUltrasonic.getRangeInches();
-    }
+    //public double DetectFuelAtFeeder() {
+    //    return fuelDetectorUltrasonic.getRangeInches();
+    //}
 
     public void ShooterAngleIncrease() {
         ShooterAdjustor.set(1);
         ShooterAngleCounter.setReverseDirection(false);
+        ShooterMovingDirection = ShooterAngleDirection.Up;
 
     }
     public void ShooterAngleDecrease() {
         ShooterAdjustor.set(-1);
         ShooterAngleCounter.setReverseDirection(true);
+        ShooterMovingDirection = ShooterAngleDirection.Down;
 
     }
     public void ShooterAngleHold() {
         ShooterAdjustor.set(0);
+        ShooterMovingDirection = ShooterAngleDirection.Stop;
+
     }
 
     public double ShooterPosition() {
-        return ShooterAngleCounter.get();
+        //return ShooterAngleCounter.get();
+        return ShooterCalculatedCounter;
     }
 
     public void ShooterPositionReset() {
         ShooterAngleCounter.reset();
+
     }
 
     public void ShooterPositionMaxLimitHit() {
         ShooterAdjustor.set(0);
-        //Set counter at max....
-        ShooterAdjustor.setPosition(999999);
+        //ShooterAdjustor.setPosition(2000);
+        ShooterMovingDirection = ShooterAngleDirection.Stop;
+
 
     }
     public void ShooterPostitionMinLimitHit() {
         ShooterAngleCounter.reset();
         ShooterAdjustor.set(0);
-    }
 
+        ShooterMovingDirection = ShooterAngleDirection.Stop;
+        ShooterLastCounter=0;
+        ShooterCalculatedCounter=0;
+    }
+    
 
 
 }

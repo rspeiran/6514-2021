@@ -405,7 +405,7 @@ public class DriveSubsystem extends SubsystemBase {
      * @return The turn rate of the robot, in degrees per second
      */
     public double getTurnRate() {
-        return -ahrs.getRate();
+        return ahrs.getRate();
     }
 
 }

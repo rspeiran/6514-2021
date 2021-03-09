@@ -113,6 +113,9 @@ public class RobotContainer {
         SmartDashboard.putData("HippoAutoCollectFuel", new HippoAutoCollectFuel());
         SmartDashboard.putData("ConveyorUp", new ConveyorUp(0.10, m_fuelDeliverySubSystem));
         SmartDashboard.putData("ConveyorDown", new ConveyorDown(0.10, m_fuelDeliverySubSystem));
+        SmartDashboard.putData("ShooterAngleIncrease", new ShooterAngleIncrease(m_fuelDeliverySubSystem));
+        SmartDashboard.putData("ShooterAngleDecrease", new ShooterAngleDecrease(m_fuelDeliverySubSystem));
+        SmartDashboard.putData("ShooterAngleStop", new ShooterAngleStop(m_fuelDeliverySubSystem));
         SmartDashboard.putData("ShooterOn", new ShooterOn(m_fuelShooterPIDSubsystem));
         SmartDashboard.putData("ShooterOff", new ShooterOff(m_fuelShooterPIDSubsystem));
 
@@ -261,8 +264,8 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         // The selected command will be run in autonomous
-        //return m_chooser.getSelected();
-        return RamseteCommand_Demo();
+        return m_chooser.getSelected();
+        //return RamseteCommand_Demo();
     }
 
     public Command RamseteCommand_Demo() {
@@ -274,8 +277,8 @@ public class RobotContainer {
                     DriveConstants.ksVolts,
                     DriveConstants.kvVoltSecondsPerMeter,
                     DriveConstants.kaVoltSecondsSquaredPerMeter),
-                DriveConstants.kDriveKinematics,
-                10);
+                    DriveConstants.kDriveKinematics,
+                    10);
     
         // Create config for trajectory
         TrajectoryConfig config =
@@ -293,12 +296,12 @@ public class RobotContainer {
                 new Pose2d(0, 0, new Rotation2d(0)),
                 // Pass through these interior waypoints
                 List.of(
-                    new Translation2d(1.0, 0.0),
-                    new Translation2d(1.50, 0.0),
+                    new Translation2d(0.50, 0.0),
+                    new Translation2d(1.00, 0.0),
                     //new Translation2d(2.00, 0.0),
-                    new Translation2d(2.75, 2.0)),
+                    new Translation2d(1.5, 0.0)),
                 // End 3 location and rotation
-                new Pose2d(2.75, 2.25, new Rotation2d(0)),
+                new Pose2d(2, 0, new Rotation2d(0)),
                 // Pass config
                 config);
     

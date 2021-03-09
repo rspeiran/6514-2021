@@ -54,7 +54,7 @@ public class HippoMechIn extends CommandBase {
     @Override
     public void execute() {
         m_fuelDeliverySubSystem.HippoRetractMech();
-
+        
     }
 
     // Called once the command ends or is interrupted.
