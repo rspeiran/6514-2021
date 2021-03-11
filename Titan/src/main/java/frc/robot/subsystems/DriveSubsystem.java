@@ -29,7 +29,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.SPI;
 import com.kauailabs.navx.frc.AHRS;
-//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 //import edu.wpi.first.wpilibj.interfaces.Gyro;
@@ -53,7 +53,7 @@ public class DriveSubsystem extends SubsystemBase {
     //private RobotDrive robotDrive;
     public Encoder leftDriveEncoder;
     public Encoder rightDriveEncoder;
-    private AnalogGyro gyro;
+    //private AnalogGyro gyro;
     private AHRS ahrs;
 
 
@@ -102,9 +102,9 @@ public class DriveSubsystem extends SubsystemBase {
         rightDriveEncoder.setReverseDirection(true);
 
 
-        gyro = new AnalogGyro(0);
-        addChild("Gyro",gyro);
-        gyro.setSensitivity(0.007);
+        //gyro = new AnalogGyro(0);
+        //addChild("Gyro",gyro);
+        //gyro.setSensitivity(0.007);
 
         leftDriveSpeedControl = new WPI_TalonSRX(21);
         addChild("leftDriveSpeedController",leftDriveSpeedControl);
@@ -145,7 +145,10 @@ public class DriveSubsystem extends SubsystemBase {
         differentialDrive = new DifferentialDrive(leftDriveSpeedControl, rightDriveSpeedControl);
 
         //NAVX Start
-        ahrs = new AHRS(SPI.Port.kMXP); 
+        ahrs = new AHRS(SPI.Port.kMXP);
+        ahrs.enableBoardlevelYawReset(true);
+
+
         addChild("NavXAHRS",ahrs);
         
         /* Display 6-axis Processed Angle Data                                      */
@@ -164,12 +167,12 @@ public class DriveSubsystem extends SubsystemBase {
 
         /* These functions are compatible w/the WPI Gyro Class, providing a simple  */
         /* path for upgrading from the Kit-of-Parts gyro to the navx-MXP            */
-        //SmartDashboard.putNumber(   "IMU_TotalYaw",         ahrs.getAngle());
+        SmartDashboard.putNumber(   "IMU_TotalYaw",         ahrs.getAngle());
         //SmartDashboard.putNumber(   "IMU_YawRateDPS",       ahrs.getRate());
 
         /* Display Processed Acceleration Data (Linear Acceleration, Motion Detect) */
         //SmartDashboard.putNumber(   "IMU_Accel_X",          ahrs.getWorldLinearAccelX());
-        //SmartDashboard.putNumber(   "IMU_Accel_Y",          ahrs.getWorldLinearAccelY());
+        SmartDashboard.putNumber(   "IMU_Accel_Y",          ahrs.getWorldLinearAccelY());
         //SmartDashboard.putBoolean(  "IMU_IsMoving",         ahrs.isMoving());
         //SmartDashboard.putBoolean(  "IMU_IsRotating",       ahrs.isRotating());
 
@@ -188,13 +191,13 @@ public class DriveSubsystem extends SubsystemBase {
         /* for advanced users.  Before using this data, please consider whether     */
         /* the processed data (see above) will suit your needs.                     */
         //SmartDashboard.putNumber(   "RawGyro_X",            ahrs.getRawGyroX());
-        //SmartDashboard.putNumber(   "RawGyro_Y",            ahrs.getRawGyroY());
+        SmartDashboard.putNumber(   "RawGyro_Y",            ahrs.getRawGyroY());
         //SmartDashboard.putNumber(   "RawGyro_Z",            ahrs.getRawGyroZ());
         //SmartDashboard.putNumber(   "RawAccel_X",           ahrs.getRawAccelX());
         //SmartDashboard.putNumber(   "RawAccel_Y",           ahrs.getRawAccelY());
         //SmartDashboard.putNumber(   "RawAccel_Z",           ahrs.getRawAccelZ());
         //SmartDashboard.putNumber(   "RawMag_X",             ahrs.getRawMagX());
-        //SmartDashboard.putNumber(   "RawMag_Y",             ahrs.getRawMagY());
+        SmartDashboard.putNumber(   "RawMag_Y",             ahrs.getRawMagY());
         //SmartDashboard.putNumber(   "RawMag_Z",             ahrs.getRawMagZ());
         //SmartDashboard.putNumber(   "IMU_Temp_C",           ahrs.getTempC());
         
@@ -225,6 +228,7 @@ public class DriveSubsystem extends SubsystemBase {
         // Odometry class for tracking robot pose
 
         //resetEncoders();
+
         m_odometry = new DifferentialDriveOdometry(ahrs.getRotation2d());
      
 
@@ -285,7 +289,6 @@ public class DriveSubsystem extends SubsystemBase {
 
     public double getGyroAngle() {
         return ahrs.getAngle();
-       
     }
     public double getAngleRate() {
         return ahrs.getRate();
@@ -406,6 +409,6 @@ public class DriveSubsystem extends SubsystemBase {
      */
     public double getTurnRate() {
         return ahrs.getRate();
-    }
+   }
 
 }

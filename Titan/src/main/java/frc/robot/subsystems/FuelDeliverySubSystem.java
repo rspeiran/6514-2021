@@ -53,12 +53,13 @@ public class FuelDeliverySubSystem extends SubsystemBase {
 
     private double HippoIntakeSpeed = .45;
     private double HippoMotorStop = 0;
+    private int HippoMotorStallCount = 0;
   
     // 0.43 speed
     //private double ShooterTopMotorSpeed = 0.65;//0.50; //Start .42
     //private double ShooterBottomMotorSpped = 0.65; //0.60; //Start 0.42  //Start .46
   
-    private double ConveyorMotorSpeed = .80;
+    private double ConveyorMotorSpeed = .85;
     //private double ShooterSpeed = 0.50;
   
     private Ultrasonic fuelDetectorUltrasonic;
@@ -190,6 +191,18 @@ public class FuelDeliverySubSystem extends SubsystemBase {
             }
         }
 
+        if (powerDistributionPanel.getCurrent(1) > 5)
+        {
+            if(HippoMotorStallCount > 100)
+            {
+                HippoMotorOff();
+                HippoRetractMech();
+                HippoMotorStallCount = 0;
+            }
+            HippoMotorStallCount = HippoMotorStallCount +1;
+        }
+
+
         //System.out.print("Angle Counter ");
         //System.out.print(ShooterAngleCounter.get());
         //System.out.print(" Counter ");
@@ -222,14 +235,17 @@ public class FuelDeliverySubSystem extends SubsystemBase {
 
     public void HippoMotorOn() {
         HippoMotorSpeedController.set(HippoIntakeSpeed);
+        HippoMotorStallCount = 0;
     }
 
     public void HippoMotorOff() {
         HippoMotorSpeedController.set(HippoMotorStop);
+        HippoMotorStallCount = 0;
     }
 
     public void HippoMotorReverseOn() {
         HippoMotorSpeedController.set(-1*HippoIntakeSpeed);
+        HippoMotorStallCount = 0;
     }
   
     //public void HippoMotorReverse() {
