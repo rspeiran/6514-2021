@@ -50,6 +50,36 @@ public class DriveRamsete extends CommandBase {
 
         // Create a voltage constraint to ensure we don't accelerate too fast
 
+        // Create a voltage constraint to ensure we don't accelerate too fast
+        var autoVoltageConstraint =
+            new DifferentialDriveVoltageConstraint(
+                new SimpleMotorFeedforward(
+                    DriveConstants.ksVolts,
+                    DriveConstants.kvVoltSecondsPerMeter,
+                    DriveConstants.kaVoltSecondsSquaredPerMeter),
+                    DriveConstants.kDriveKinematics,
+                    10);
+
+        // Create config for trajectory
+        config = new TrajectoryConfig(
+                    AutoConstants.kMaxSpeedMetersPerSecond,
+                    AutoConstants.kMaxAccelerationMetersPerSecondSquared)
+                    .setKinematics(DriveConstants.kDriveKinematics)
+                    .addConstraint(autoVoltageConstraint);
+
+        exampleTrajectory = TrajectoryGenerator.generateTrajectory(
+            // Start at the origin facing the +X direction
+            new Pose2d(0, 0, new Rotation2d(0)),
+            // Pass through these interior waypoints
+            List.of(
+                new Translation2d(0.50, 0.0),
+                new Translation2d(1.00, 0.25),
+                //new Translation2d(2.00, 0.0),
+                new Translation2d(1.5, -0.25)),
+            // End 3 location and rotation
+            new Pose2d(2, 0, new Rotation2d(0)),
+            // Pass config
+            config);
 
     }
 
@@ -57,43 +87,7 @@ public class DriveRamsete extends CommandBase {
     @Override
     public void initialize() {
 
-        // Create a voltage constraint to ensure we don't accelerate too fast
-        var autoVoltageConstraint =
-        new DifferentialDriveVoltageConstraint(
-            new SimpleMotorFeedforward(
-                DriveConstants.ksVolts,
-                DriveConstants.kvVoltSecondsPerMeter,
-                DriveConstants.kaVoltSecondsSquaredPerMeter),
-                DriveConstants.kDriveKinematics,
-                10);
-
-        // Create config for trajectory
-        TrajectoryConfig config =
-            new TrajectoryConfig(
-                    AutoConstants.kMaxSpeedMetersPerSecond,
-                    AutoConstants.kMaxAccelerationMetersPerSecondSquared)
-                // Add kinematics to ensure max speed is actually obeyed
-                .setKinematics(DriveConstants.kDriveKinematics)
-                // Apply the voltage constraint
-                .addConstraint(autoVoltageConstraint);
-
-        Trajectory exampleTrajectory =
-            TrajectoryGenerator.generateTrajectory(
-                // Start at the origin facing the +X direction
-                new Pose2d(0, 0, new Rotation2d(0)),
-                // Pass through these interior waypoints
-                List.of(
-                    new Translation2d(0.50, 0.0),
-                    new Translation2d(1.00, 0.25),
-                    //new Translation2d(2.00, 0.0),
-                    new Translation2d(1.5, -0.25)),
-                // End 3 location and rotation
-                new Pose2d(2, 0, new Rotation2d(0)),
-                // Pass config
-                config);
-
-        RamseteCommand ramseteCommand =
-            new RamseteCommand(
+        ramseteCommand = new RamseteCommand(
                 exampleTrajectory,
                 m_driveSubsystem::getPose,
                 new RamseteController(AutoConstants.kRamseteB, AutoConstants.kRamseteZeta),
@@ -114,8 +108,6 @@ public class DriveRamsete extends CommandBase {
 
         // Run path following command, then stop at the end.
         ramseteCommand.andThen(() -> m_driveSubsystem.tankDriveVolts(0, 0));
-    
-        
 
     }
 

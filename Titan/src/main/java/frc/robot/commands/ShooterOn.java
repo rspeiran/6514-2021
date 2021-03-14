@@ -21,11 +21,13 @@ import frc.robot.subsystems.FuelShooterPIDSubsystem;
 public class ShooterOn extends CommandBase {
 
     private final FuelShooterPIDSubsystem m_FuelShooterPIDSubsystem;
+    private final double m_Speed;
 
-    public ShooterOn(FuelShooterPIDSubsystem subsystem) {
+    public ShooterOn(FuelShooterPIDSubsystem subsystem, double Speed) {
 
         m_FuelShooterPIDSubsystem = subsystem;
         addRequirements(m_FuelShooterPIDSubsystem);
+        m_Speed = Speed;
     }
 
     // Called when the command is initially scheduled.
@@ -34,7 +36,7 @@ public class ShooterOn extends CommandBase {
         System.out.println("Shooter On");
  
         m_FuelShooterPIDSubsystem.ShooterOn();
-        m_FuelShooterPIDSubsystem.setSetpoint(350);
+        m_FuelShooterPIDSubsystem.setSetpoint(m_Speed);
         m_FuelShooterPIDSubsystem.enable();
  
     }

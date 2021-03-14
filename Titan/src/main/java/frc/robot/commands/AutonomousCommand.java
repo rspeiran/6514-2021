@@ -68,7 +68,7 @@ public class AutonomousCommand extends SequentialCommandGroup {
             new WaitCommand(1),
             new FuelReleaseRetract(m_fuelDeliverySubSystem),
             new WaitCommand(1),
-            new ShooterOn(m_fuelShooterPIDSubsystem),
+            new ShooterOn(m_fuelShooterPIDSubsystem, 350),
             new WaitCommand(1),
             new ShooterOff(m_fuelShooterPIDSubsystem),
             new WaitCommand(1),

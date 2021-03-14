@@ -152,63 +152,63 @@ public class DriveSubsystem extends SubsystemBase {
         addChild("NavXAHRS",ahrs);
         
         /* Display 6-axis Processed Angle Data                                      */
-        //SmartDashboard.putBoolean(  "IMU_Connected",        ahrs.isConnected());
-        //SmartDashboard.putBoolean(  "IMU_IsCalibrating",    ahrs.isCalibrating());
-        //SmartDashboard.putNumber(   "IMU_Yaw",              ahrs.getYaw());
-        //SmartDashboard.putNumber(   "IMU_Pitch",            ahrs.getPitch());
-        //SmartDashboard.putNumber(   "IMU_Roll",             ahrs.getRoll());
+        SmartDashboard.putBoolean(  "IMU_Connected",        ahrs.isConnected());
+        SmartDashboard.putBoolean(  "IMU_IsCalibrating",    ahrs.isCalibrating());
+        SmartDashboard.putNumber(   "IMU_Yaw",              ahrs.getYaw());
+        SmartDashboard.putNumber(   "IMU_Pitch",            ahrs.getPitch());
+        SmartDashboard.putNumber(   "IMU_Roll",             ahrs.getRoll());
         
         /* Display tilt-corrected, Magnetometer-based heading (requires             */
         /* magnetometer calibration to be useful)                                   */
-        //SmartDashboard.putNumber(   "IMU_CompassHeading",   ahrs.getCompassHeading());
+        SmartDashboard.putNumber(   "IMU_CompassHeading",   ahrs.getCompassHeading());
         
         /* Display 9-axis Heading (requires magnetometer calibration to be useful)  */
-        //SmartDashboard.putNumber(   "IMU_FusedHeading",     ahrs.getFusedHeading());
+        SmartDashboard.putNumber(   "IMU_FusedHeading",     ahrs.getFusedHeading());
 
         /* These functions are compatible w/the WPI Gyro Class, providing a simple  */
         /* path for upgrading from the Kit-of-Parts gyro to the navx-MXP            */
         SmartDashboard.putNumber(   "IMU_TotalYaw",         ahrs.getAngle());
-        //SmartDashboard.putNumber(   "IMU_YawRateDPS",       ahrs.getRate());
+        SmartDashboard.putNumber(   "IMU_YawRateDPS",       ahrs.getRate());
 
         /* Display Processed Acceleration Data (Linear Acceleration, Motion Detect) */
-        //SmartDashboard.putNumber(   "IMU_Accel_X",          ahrs.getWorldLinearAccelX());
+        SmartDashboard.putNumber(   "IMU_Accel_X",          ahrs.getWorldLinearAccelX());
         SmartDashboard.putNumber(   "IMU_Accel_Y",          ahrs.getWorldLinearAccelY());
-        //SmartDashboard.putBoolean(  "IMU_IsMoving",         ahrs.isMoving());
-        //SmartDashboard.putBoolean(  "IMU_IsRotating",       ahrs.isRotating());
+        SmartDashboard.putBoolean(  "IMU_IsMoving",         ahrs.isMoving());
+        SmartDashboard.putBoolean(  "IMU_IsRotating",       ahrs.isRotating());
 
         /* Display estimates of velocity/displacement.  Note that these values are  */
         /* not expected to be accurate enough for estimating robot position on a    */
         /* FIRST FRC Robotics Field, due to accelerometer noise and the compounding */
         /* of these errors due to single (velocity) integration and especially      */
         /* double (displacement) integration.                                       */
-        //SmartDashboard.putNumber(   "Velocity_X",           ahrs.getVelocityX());
-        //SmartDashboard.putNumber(   "Velocity_Y",           ahrs.getVelocityY());
-        //SmartDashboard.putNumber(   "Displacement_X",       ahrs.getDisplacementX());
-        //SmartDashboard.putNumber(   "Displacement_Y",       ahrs.getDisplacementY());
+        SmartDashboard.putNumber(   "Velocity_X",           ahrs.getVelocityX());
+        SmartDashboard.putNumber(   "Velocity_Y",           ahrs.getVelocityY());
+        SmartDashboard.putNumber(   "Displacement_X",       ahrs.getDisplacementX());
+        SmartDashboard.putNumber(   "Displacement_Y",       ahrs.getDisplacementY());
         
         /* Display Raw Gyro/Accelerometer/Magnetometer Values                       */
         /* NOTE:  These values are not normally necessary, but are made available   */
         /* for advanced users.  Before using this data, please consider whether     */
         /* the processed data (see above) will suit your needs.                     */
-        //SmartDashboard.putNumber(   "RawGyro_X",            ahrs.getRawGyroX());
+        SmartDashboard.putNumber(   "RawGyro_X",            ahrs.getRawGyroX());
         SmartDashboard.putNumber(   "RawGyro_Y",            ahrs.getRawGyroY());
-        //SmartDashboard.putNumber(   "RawGyro_Z",            ahrs.getRawGyroZ());
-        //SmartDashboard.putNumber(   "RawAccel_X",           ahrs.getRawAccelX());
-        //SmartDashboard.putNumber(   "RawAccel_Y",           ahrs.getRawAccelY());
-        //SmartDashboard.putNumber(   "RawAccel_Z",           ahrs.getRawAccelZ());
-        //SmartDashboard.putNumber(   "RawMag_X",             ahrs.getRawMagX());
+        SmartDashboard.putNumber(   "RawGyro_Z",            ahrs.getRawGyroZ());
+        SmartDashboard.putNumber(   "RawAccel_X",           ahrs.getRawAccelX());
+        SmartDashboard.putNumber(   "RawAccel_Y",           ahrs.getRawAccelY());
+        SmartDashboard.putNumber(   "RawAccel_Z",           ahrs.getRawAccelZ());
+        SmartDashboard.putNumber(   "RawMag_X",             ahrs.getRawMagX());
         SmartDashboard.putNumber(   "RawMag_Y",             ahrs.getRawMagY());
-        //SmartDashboard.putNumber(   "RawMag_Z",             ahrs.getRawMagZ());
-        //SmartDashboard.putNumber(   "IMU_Temp_C",           ahrs.getTempC());
+        SmartDashboard.putNumber(   "RawMag_Z",             ahrs.getRawMagZ());
+        SmartDashboard.putNumber(   "IMU_Temp_C",           ahrs.getTempC());
         
         /* Omnimount Yaw Axis Information                                           */
         /* For more info, see http://navx-mxp.kauailabs.com/installation/omnimount  */
-        //AHRS.BoardYawAxis yaw_axis = ahrs.getBoardYawAxis();
-        //SmartDashboard.putString(   "YawAxisDirection",     yaw_axis.up ? "Up" : "Down" );
-        //SmartDashboard.putNumber(   "YawAxis",              yaw_axis.board_axis.getValue() );
+        AHRS.BoardYawAxis yaw_axis = ahrs.getBoardYawAxis();
+        SmartDashboard.putString(   "YawAxisDirection",     yaw_axis.up ? "Up" : "Down" );
+        SmartDashboard.putNumber(   "YawAxis",              yaw_axis.board_axis.getValue() );
         
         /* Sensor Board Information                                                 */
-        //SmartDashboard.putString(   "FirmwareVersion",      ahrs.getFirmwareVersion());
+        SmartDashboard.putString(   "FirmwareVersion",      ahrs.getFirmwareVersion());
         
         /* Quaternion Data                                                          */
         /* Quaternions are fascinating, and are the most compact representation of  */
@@ -227,10 +227,11 @@ public class DriveSubsystem extends SubsystemBase {
 
         // Odometry class for tracking robot pose
 
-        //resetEncoders();
-
+        leftDriveEncoder.reset();
+        rightDriveEncoder.reset();
+        ahrs.reset();
+        
         m_odometry = new DifferentialDriveOdometry(ahrs.getRotation2d());
-     
 
     }
 
@@ -253,6 +254,7 @@ public class DriveSubsystem extends SubsystemBase {
 
         // Update the odometry in the periodic block
         m_odometry.update(ahrs.getRotation2d(), leftDriveEncoder.getDistance(), rightDriveEncoder.getDistance());
+
 
     }
 
@@ -399,7 +401,7 @@ public class DriveSubsystem extends SubsystemBase {
      * @return the robot's heading in degrees, from -180 to 180
      */
     public double getHeading() {
-        return ahrs.getRotation2d().getDegrees();
+        return (ahrs.getRotation2d().getDegrees());
     }
 
     /**
@@ -408,7 +410,7 @@ public class DriveSubsystem extends SubsystemBase {
      * @return The turn rate of the robot, in degrees per second
      */
     public double getTurnRate() {
-        return ahrs.getRate();
+        return -ahrs.getRate();
    }
 
 }
