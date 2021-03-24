@@ -48,38 +48,61 @@ public class DriveRamsete extends CommandBase {
         m_driveSubsystem = subsystem;
         addRequirements(m_driveSubsystem);
 
-        // Create a voltage constraint to ensure we don't accelerate too fast
 
-        // Create a voltage constraint to ensure we don't accelerate too fast
         var autoVoltageConstraint =
-            new DifferentialDriveVoltageConstraint(
-                new SimpleMotorFeedforward(
-                    DriveConstants.ksVolts,
-                    DriveConstants.kvVoltSecondsPerMeter,
-                    DriveConstants.kaVoltSecondsSquaredPerMeter),
-                    DriveConstants.kDriveKinematics,
-                    10);
+        new DifferentialDriveVoltageConstraint(
+            new SimpleMotorFeedforward(
+                DriveConstants.ksVolts,
+                DriveConstants.kvVoltSecondsPerMeter,
+                DriveConstants.kaVoltSecondsSquaredPerMeter),
+                DriveConstants.kDriveKinematics,
+                10);
 
-        // Create config for trajectory
-        config = new TrajectoryConfig(
-                    AutoConstants.kMaxSpeedMetersPerSecond,
-                    AutoConstants.kMaxAccelerationMetersPerSecondSquared)
-                    .setKinematics(DriveConstants.kDriveKinematics)
-                    .addConstraint(autoVoltageConstraint);
+    // Create config for trajectory
+    config = new TrajectoryConfig(
+                AutoConstants.kMaxSpeedMetersPerSecond,
+                AutoConstants.kMaxAccelerationMetersPerSecondSquared)
+                .setKinematics(DriveConstants.kDriveKinematics)
+                .addConstraint(autoVoltageConstraint);
 
-        exampleTrajectory = TrajectoryGenerator.generateTrajectory(
-            // Start at the origin facing the +X direction
-            new Pose2d(0, 0, new Rotation2d(0)),
-            // Pass through these interior waypoints
-            List.of(
-                new Translation2d(0.50, 0.0),
-                new Translation2d(1.00, 0.25),
-                //new Translation2d(2.00, 0.0),
-                new Translation2d(1.5, -0.25)),
-            // End 3 location and rotation
-            new Pose2d(2, 0, new Rotation2d(0)),
-            // Pass config
-            config);
+    exampleTrajectory = TrajectoryGenerator.generateTrajectory(
+        // Start at the origin facing the +X direction
+        new Pose2d(0, 0, new Rotation2d(0)),
+        // Pass through these interior waypoints
+        List.of(
+            new Translation2d(0.50, 0.0),
+            new Translation2d(1.00, 0.25),
+            //new Translation2d(2.00, 0.0),
+            new Translation2d(1.5, -0.25)),
+        // End 3 location and rotation
+        new Pose2d(2, 0, new Rotation2d(0)),
+        // Pass config
+        config);
+
+        System.out.println(" BEFORE COMMAND RAMSETETE:  ");
+
+        ramseteCommand = new RamseteCommand(
+            exampleTrajectory,
+            m_driveSubsystem::getPose,
+            new RamseteController(AutoConstants.kRamseteB, AutoConstants.kRamseteZeta),
+            new SimpleMotorFeedforward(
+                DriveConstants.ksVolts,
+                DriveConstants.kvVoltSecondsPerMeter,
+                DriveConstants.kaVoltSecondsSquaredPerMeter),
+            DriveConstants.kDriveKinematics,
+            m_driveSubsystem::getWheelSpeeds,
+            new PIDController(DriveConstants.kPDriveVel, 0, 0),
+            new PIDController(DriveConstants.kPDriveVel, 0, 0),
+            // RamseteCommand passes volts to the callback
+            m_driveSubsystem::tankDriveVolts,
+            m_driveSubsystem);
+
+            // Reset odometry to the starting pose of the trajectory.
+            m_driveSubsystem.resetOdometry(exampleTrajectory.getInitialPose());
+
+            // Run path following command, then stop at the end.
+            ramseteCommand.andThen(() -> m_driveSubsystem.tankDriveVolts(0, 0));
+
 
     }
 
@@ -87,28 +110,30 @@ public class DriveRamsete extends CommandBase {
     @Override
     public void initialize() {
 
-        ramseteCommand = new RamseteCommand(
-                exampleTrajectory,
-                m_driveSubsystem::getPose,
-                new RamseteController(AutoConstants.kRamseteB, AutoConstants.kRamseteZeta),
-                new SimpleMotorFeedforward(
-                    DriveConstants.ksVolts,
-                    DriveConstants.kvVoltSecondsPerMeter,
-                    DriveConstants.kaVoltSecondsSquaredPerMeter),
-                DriveConstants.kDriveKinematics,
-                m_driveSubsystem::getWheelSpeeds,
-                new PIDController(DriveConstants.kPDriveVel, 0, 0),
-                new PIDController(DriveConstants.kPDriveVel, 0, 0),
-                // RamseteCommand passes volts to the callback
-                m_driveSubsystem::tankDriveVolts,
-                m_driveSubsystem);
+        // Create a voltage constraint to ensure we don't accelerate too fast
 
-        // Reset odometry to the starting pose of the trajectory.
-        m_driveSubsystem.resetOdometry(exampleTrajectory.getInitialPose());
 
-        // Run path following command, then stop at the end.
-        ramseteCommand.andThen(() -> m_driveSubsystem.tankDriveVolts(0, 0));
+    }
 
+    // Called every time the scheduler runs while the command is scheduled.
+    @Override
+    public void execute() {
+        System.out.println(" EXECUTE RAMSETETE:  ");
+
+        //ramseteCommand.execute();
+        //andThen(() -> 
+    }
+
+    // Called once the command ends or is interrupted.
+    @Override
+    public void end(boolean interrupted) {
+        m_driveSubsystem.tankDriveVolts(0, 0);
+    }
+
+    // Returns true when the command should end.
+    @Override
+    public boolean isFinished() {
+        return false;
     }
 
 }

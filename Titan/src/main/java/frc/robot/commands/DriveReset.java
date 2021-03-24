@@ -31,7 +31,6 @@ public class DriveReset extends CommandBase {
     @Override
     public void initialize() {
         m_driveSubsystem.ZeroEncoders();
-        m_driveSubsystem.ZeroGyro();
     }
 
     // Called every time the scheduler runs while the command is scheduled.

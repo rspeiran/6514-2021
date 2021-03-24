@@ -18,10 +18,10 @@ public class FuelShooterPIDSubsystem extends PIDSubsystem {
     private double ShooterSpeed = 0.85;
 
     //P I D Variables
-    private static final double kP = 1.5;  
+    private static final double kP = 1.25;//1.25;  
     private static final double kI = 0.0;
     private static final double kD = 0.0;
-    private static final double kF = 1.20;
+    private static final double kF = 1.225;//1.20;
 
     private double mRate;
     private double maxVelocityTop = 475;
@@ -37,7 +37,7 @@ public class FuelShooterPIDSubsystem extends PIDSubsystem {
         m_ShooterEncoder.setMaxPeriod((.1));
         m_ShooterEncoder.setMinRate(10);
         m_ShooterEncoder.setReverseDirection(false);
-        m_ShooterEncoder.setSamplesToAverage(5);
+        m_ShooterEncoder.setSamplesToAverage(50);
 
         // Use these to get going:
         // setSetpoint() -  Sets where the PID controller should move the system

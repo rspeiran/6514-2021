@@ -11,10 +11,15 @@
 package frc.robot.subsystems;
 
 import frc.robot.RobotContainer;
+import jdk.jfr.Enabled;
 //import frc.robot.commands.*;
 //import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.AnalogGyro;
+//import com.analog.adis16470.frc.ADIS16470_IMU;
+//import com.analog.adis16470.frc.ADIS16470_IMU.ADIS16470CalibrationTime;
+//import com.analog.adis16470.frc.ADIS16470_IMU.IMUAxis;
+
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.Encoder;
 //import edu.wpi.first.wpilibj.RobotDrive;
@@ -32,6 +37,7 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
 //import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
@@ -55,6 +61,10 @@ public class DriveSubsystem extends SubsystemBase {
     public Encoder rightDriveEncoder;
     //private AnalogGyro gyro;
     private AHRS ahrs;
+    //private ADIS16470_IMU imu;
+    
+
+    private Rotation2d MyGyroAnlge;
 
 
     private WPI_TalonSRX leftDriveSpeedControl;
@@ -89,7 +99,6 @@ public class DriveSubsystem extends SubsystemBase {
         leftDriveEncoder.setSamplesToAverage(5);
         leftDriveEncoder.setReverseDirection(false);
 
-
         rightDriveEncoder = new Encoder(4, 5, false, EncodingType.k4X);
         addChild("RightDriveEncoder",rightDriveEncoder);
         //rightDriveEncoder.setDistancePerPulse(1.0);
@@ -105,6 +114,9 @@ public class DriveSubsystem extends SubsystemBase {
         //gyro = new AnalogGyro(0);
         //addChild("Gyro",gyro);
         //gyro.setSensitivity(0.007);
+        //imu = new ADIS16470_IMU(IMUAxis.kY, SPI.Port.kOnboardCS0, ADIS16470CalibrationTime._4s);
+        //imu = new ADIS16470_IMU();
+        //addChild("IMU ",imu);
 
         leftDriveSpeedControl = new WPI_TalonSRX(21);
         addChild("leftDriveSpeedController",leftDriveSpeedControl);
@@ -146,7 +158,7 @@ public class DriveSubsystem extends SubsystemBase {
 
         //NAVX Start
         ahrs = new AHRS(SPI.Port.kMXP);
-        ahrs.enableBoardlevelYawReset(true);
+        //ahrs.enableBoardlevelYawReset(true);
 
 
         addChild("NavXAHRS",ahrs);
@@ -154,61 +166,61 @@ public class DriveSubsystem extends SubsystemBase {
         /* Display 6-axis Processed Angle Data                                      */
         SmartDashboard.putBoolean(  "IMU_Connected",        ahrs.isConnected());
         SmartDashboard.putBoolean(  "IMU_IsCalibrating",    ahrs.isCalibrating());
-        SmartDashboard.putNumber(   "IMU_Yaw",              ahrs.getYaw());
-        SmartDashboard.putNumber(   "IMU_Pitch",            ahrs.getPitch());
-        SmartDashboard.putNumber(   "IMU_Roll",             ahrs.getRoll());
+        SmartDashboard.putNumber(   "IMU_Yaw Z",              ahrs.getYaw());
+        SmartDashboard.putNumber(   "IMU_Pitch Y",            ahrs.getPitch());
+        SmartDashboard.putNumber(   "IMU_Roll X",             ahrs.getRoll());
         
         /* Display tilt-corrected, Magnetometer-based heading (requires             */
         /* magnetometer calibration to be useful)                                   */
-        SmartDashboard.putNumber(   "IMU_CompassHeading",   ahrs.getCompassHeading());
+        //SmartDashboard.putNumber(   "IMU_CompassHeading",   ahrs.getCompassHeading());
         
         /* Display 9-axis Heading (requires magnetometer calibration to be useful)  */
-        SmartDashboard.putNumber(   "IMU_FusedHeading",     ahrs.getFusedHeading());
+        //SmartDashboard.putNumber(   "IMU_FusedHeading",     ahrs.getFusedHeading());
 
         /* These functions are compatible w/the WPI Gyro Class, providing a simple  */
         /* path for upgrading from the Kit-of-Parts gyro to the navx-MXP            */
-        SmartDashboard.putNumber(   "IMU_TotalYaw",         ahrs.getAngle());
-        SmartDashboard.putNumber(   "IMU_YawRateDPS",       ahrs.getRate());
+        //SmartDashboard.putNumber(   "IMU_TotalYaw",         ahrs.getAngle());
+        //SmartDashboard.putNumber(   "IMU_YawRateDPS",       ahrs.getRate());
 
         /* Display Processed Acceleration Data (Linear Acceleration, Motion Detect) */
-        SmartDashboard.putNumber(   "IMU_Accel_X",          ahrs.getWorldLinearAccelX());
-        SmartDashboard.putNumber(   "IMU_Accel_Y",          ahrs.getWorldLinearAccelY());
-        SmartDashboard.putBoolean(  "IMU_IsMoving",         ahrs.isMoving());
-        SmartDashboard.putBoolean(  "IMU_IsRotating",       ahrs.isRotating());
+        //SmartDashboard.putNumber(   "IMU_Accel_X",          ahrs.getWorldLinearAccelX());
+        //SmartDashboard.putNumber(   "IMU_Accel_Y",          ahrs.getWorldLinearAccelY());
+        //SmartDashboard.putBoolean(  "IMU_IsMoving",         ahrs.isMoving());
+        //SmartDashboard.putBoolean(  "IMU_IsRotating",       ahrs.isRotating());
 
         /* Display estimates of velocity/displacement.  Note that these values are  */
         /* not expected to be accurate enough for estimating robot position on a    */
         /* FIRST FRC Robotics Field, due to accelerometer noise and the compounding */
         /* of these errors due to single (velocity) integration and especially      */
         /* double (displacement) integration.                                       */
-        SmartDashboard.putNumber(   "Velocity_X",           ahrs.getVelocityX());
-        SmartDashboard.putNumber(   "Velocity_Y",           ahrs.getVelocityY());
-        SmartDashboard.putNumber(   "Displacement_X",       ahrs.getDisplacementX());
-        SmartDashboard.putNumber(   "Displacement_Y",       ahrs.getDisplacementY());
+        //SmartDashboard.putNumber(   "Velocity_X",           ahrs.getVelocityX());
+        //SmartDashboard.putNumber(   "Velocity_Y",           ahrs.getVelocityY());
+        //SmartDashboard.putNumber(   "Displacement_X",       ahrs.getDisplacementX());
+        //SmartDashboard.putNumber(   "Displacement_Y",       ahrs.getDisplacementY());
         
         /* Display Raw Gyro/Accelerometer/Magnetometer Values                       */
         /* NOTE:  These values are not normally necessary, but are made available   */
         /* for advanced users.  Before using this data, please consider whether     */
         /* the processed data (see above) will suit your needs.                     */
-        SmartDashboard.putNumber(   "RawGyro_X",            ahrs.getRawGyroX());
-        SmartDashboard.putNumber(   "RawGyro_Y",            ahrs.getRawGyroY());
-        SmartDashboard.putNumber(   "RawGyro_Z",            ahrs.getRawGyroZ());
-        SmartDashboard.putNumber(   "RawAccel_X",           ahrs.getRawAccelX());
-        SmartDashboard.putNumber(   "RawAccel_Y",           ahrs.getRawAccelY());
-        SmartDashboard.putNumber(   "RawAccel_Z",           ahrs.getRawAccelZ());
-        SmartDashboard.putNumber(   "RawMag_X",             ahrs.getRawMagX());
-        SmartDashboard.putNumber(   "RawMag_Y",             ahrs.getRawMagY());
-        SmartDashboard.putNumber(   "RawMag_Z",             ahrs.getRawMagZ());
-        SmartDashboard.putNumber(   "IMU_Temp_C",           ahrs.getTempC());
+        //SmartDashboard.putNumber(   "RawGyro_X",            ahrs.getRawGyroX());
+        //SmartDashboard.putNumber(   "RawGyro_Y",            ahrs.getRawGyroY());
+        //SmartDashboard.putNumber(   "RawGyro_Z",            ahrs.getRawGyroZ());
+        //SmartDashboard.putNumber(   "RawAccel_X",           ahrs.getRawAccelX());
+        //SmartDashboard.putNumber(   "RawAccel_Y",           ahrs.getRawAccelY());
+        //SmartDashboard.putNumber(   "RawAccel_Z",           ahrs.getRawAccelZ());
+        //SmartDashboard.putNumber(   "RawMag_X",             ahrs.getRawMagX());
+        //SmartDashboard.putNumber(   "RawMag_Y",             ahrs.getRawMagY());
+        //SmartDashboard.putNumber(   "RawMag_Z",             ahrs.getRawMagZ());
+        //SmartDashboard.putNumber(   "IMU_Temp_C",           ahrs.getTempC());
         
         /* Omnimount Yaw Axis Information                                           */
         /* For more info, see http://navx-mxp.kauailabs.com/installation/omnimount  */
-        AHRS.BoardYawAxis yaw_axis = ahrs.getBoardYawAxis();
-        SmartDashboard.putString(   "YawAxisDirection",     yaw_axis.up ? "Up" : "Down" );
-        SmartDashboard.putNumber(   "YawAxis",              yaw_axis.board_axis.getValue() );
+        //AHRS.BoardYawAxis yaw_axis = ahrs.getBoardYawAxis();
+        //SmartDashboard.putString(   "YawAxisDirection",     yaw_axis.up ? "Up" : "Down" );
+        //SmartDashboard.putNumber(   "YawAxis",              yaw_axis.board_axis.getValue() );
         
         /* Sensor Board Information                                                 */
-        SmartDashboard.putString(   "FirmwareVersion",      ahrs.getFirmwareVersion());
+        //SmartDashboard.putString(   "FirmwareVersion",      ahrs.getFirmwareVersion());
         
         /* Quaternion Data                                                          */
         /* Quaternions are fascinating, and are the most compact representation of  */
@@ -229,10 +241,13 @@ public class DriveSubsystem extends SubsystemBase {
 
         leftDriveEncoder.reset();
         rightDriveEncoder.reset();
+        //imu.reset();
         ahrs.reset();
         
-        m_odometry = new DifferentialDriveOdometry(ahrs.getRotation2d());
-
+        //m_odometry = new DifferentialDriveOdometry(ahrs.getRotation2d());
+        m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
+        //MyGyroAnlge = new Rotation2d
+        //m_odometry = new DifferentialDriveOdometry(MyGyroAnlge);
     }
 
     @Override
@@ -240,20 +255,59 @@ public class DriveSubsystem extends SubsystemBase {
         // This method will be called once per scheduler run
         if (!RobotState.isAutonomous())
         {
+            leftDriveSpeedControl.setInverted(false);
+            rightDriveSpeedControl.setInverted(false);
+            leftDriveSpeedControlFollower.setInverted(false);
+            rightDrriveSpeedControlFollower.setInverted(false);
+            
             if(userDriveStyle == DriveStyle.Tank) {
                 differentialDrive.tankDrive(-RobotContainer.getInstance().getDriverJoystick().getRawAxis(5),
                                             -RobotContainer.getInstance().getDriverJoystick().getY());
-
+                
             }
             else if (userDriveStyle == DriveStyle.Arcade) {
-                differentialDrive.arcadeDrive(RobotContainer.getInstance().getDriverJoystick().getRawAxis(5), 
-                                              RobotContainer.getInstance().getDriverJoystick().getX());
+                differentialDrive.arcadeDrive(RobotContainer.getInstance().getShooterJoystick().getY(), 
+                                              -RobotContainer.getInstance().getShooterJoystick().getX());
+
+                //differentialDrive.arcadeDrive(RobotContainer.getInstance().getShooterJoystick().getY(), 
+                //                                -RobotContainer.getInstance().getShooterJoystick().getZ());
+
+                                              
 
             }
+            differentialDrive.feed();
+
+            // System.out.print(" X ");
+            // //System.out.print(imu.getGyroInstantX());
+            // System.out.print(ahrs.getRawGyroX());
+            // System.out.print(" Y ");
+            // //System.out.print(imu.getGyroInstantY());
+            // System.out.print(ahrs.getRawGyroY());
+            // System.out.print(" Z ");
+            // //System.out.print(imu.getGyroInstantZ());
+            // System.out.print(ahrs.getRawGyroZ());
+            // System.out.print(" Angle ");
+            // System.out.println(Rotation2d.fromDegrees(getHeading()));
+
+            
         }
 
         // Update the odometry in the periodic block
-        m_odometry.update(ahrs.getRotation2d(), leftDriveEncoder.getDistance(), rightDriveEncoder.getDistance());
+        //m_odometry.update(ahrs.getRotation2d(), leftDriveEncoder.getDistance(), rightDriveEncoder.getDistance());
+
+        //MyGyroAnlge = new Rotation2d(0);
+        //m_odometry.update(MyGyroAnlge, leftDriveEncoder.getDistance(), rightDriveEncoder.getDistance());
+        //m_odometry.update(imu.getRotation2d(), leftDriveEncoder.getDistance(), rightDriveEncoder.getDistance());
+        m_odometry.update(Rotation2d.fromDegrees(getHeading()), leftDriveEncoder.getDistance(), rightDriveEncoder.getDistance());
+
+        //System.out.print(" Left ");
+        //System.out.print(leftDriveEncoder.getDistance());
+        //System.out.print(" Right ");
+        //System.out.print(rightDriveEncoder.getDistance());
+        //System.out.print(" X ");
+        //System.out.print(imu.getGyroInstantX());
+        //System.out.print(" Y ");
+        //System.out.println(imu.getGyroInstantY());
 
 
     }
@@ -267,6 +321,7 @@ public class DriveSubsystem extends SubsystemBase {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
     public void toggleDriveStyle() {
+        System.out.println("DRIVE TOGGLE");
         if (userDriveStyle == DriveStyle.Tank) {
             userDriveStyle = DriveStyle.Arcade;
         } else {
@@ -279,10 +334,7 @@ public class DriveSubsystem extends SubsystemBase {
         leftDriveEncoder.reset();
         rightDriveEncoder.reset();
         ahrs.reset();
-    }
-
-    public void ZeroGyro() {
-        ahrs.reset();
+        //imu.reset();
     }
 
     public void TankDriveControl(double leftSpeed, double rightSpeed) {
@@ -290,13 +342,15 @@ public class DriveSubsystem extends SubsystemBase {
     }
 
     public double getGyroAngle() {
+        //return imu.getAngle();
         return ahrs.getAngle();
     }
     public double getAngleRate() {
+        //return imu.getRate();
         return ahrs.getRate();
     }
-
-      /**
+    
+    /**
    * Returns the currently-estimated pose of the robot.
    *
    * @return The pose.
@@ -322,6 +376,7 @@ public class DriveSubsystem extends SubsystemBase {
     public void resetOdometry(Pose2d pose) {
         resetEncoders();
         m_odometry.resetPosition(pose, ahrs.getRotation2d());
+        //m_odometry.resetPosition(pose, imu.getRotation2d());
 
     }
 
@@ -342,9 +397,37 @@ public class DriveSubsystem extends SubsystemBase {
      * @param rightVolts the commanded right output
      */
     public void tankDriveVolts(double leftVolts, double rightVolts) {
+        leftDriveSpeedControl.configVoltageCompSaturation(11.0);
+        rightDriveSpeedControl.configVoltageCompSaturation(11.0);
+
+        leftDriveSpeedControl.enableVoltageCompensation(false);
+        rightDriveSpeedControl.enableVoltageCompensation(false);
+
+        leftDriveSpeedControl.setInverted(true);
+        rightDriveSpeedControl.setInverted(false);
+        leftDriveSpeedControlFollower.setInverted(true);
+        rightDrriveSpeedControlFollower.setInverted(false);
+
+        leftDriveEncoder.setReverseDirection(true);
+        rightDriveEncoder.setReverseDirection(false);
+
         leftDriveSpeedControl.setVoltage(leftVolts);
-        rightDriveSpeedControl.setVoltage(-rightVolts);
+        rightDriveSpeedControl.setVoltage(rightVolts);
         differentialDrive.feed();
+        
+        System.out.print(" X ");
+        System.out.print(ahrs.getRawGyroX());
+        System.out.print(" Y ");
+        System.out.print(ahrs.getRawGyroY());
+        System.out.print(" Z ");
+        System.out.print(ahrs.getRawGyroZ());
+        System.out.print(" Angle ");
+        System.out.print(Rotation2d.fromDegrees(getHeading()));
+        System.out.print(" Left ");
+        System.out.print(leftVolts);
+        System.out.print(" Right ");
+        System.out.println(rightVolts);
+
     }
 
     /** Resets the drive encoders to currently read a position of 0. */
@@ -352,6 +435,7 @@ public class DriveSubsystem extends SubsystemBase {
         leftDriveEncoder.reset();
         rightDriveEncoder.reset();
         ahrs.reset();
+        //imu.reset();
     }
 
     /**
@@ -390,11 +474,6 @@ public class DriveSubsystem extends SubsystemBase {
         differentialDrive.setMaxOutput(maxOutput);
     }
 
-    /** Zeroes the heading of the robot. */
-    public void zeroHeading() {
-        ahrs.reset();
-    }
-
     /**
      * Returns the heading of the robot.
      *
@@ -402,6 +481,7 @@ public class DriveSubsystem extends SubsystemBase {
      */
     public double getHeading() {
         return (ahrs.getRotation2d().getDegrees());
+        //return imu.getRotation2d().getDegrees();
     }
 
     /**
@@ -410,7 +490,8 @@ public class DriveSubsystem extends SubsystemBase {
      * @return The turn rate of the robot, in degrees per second
      */
     public double getTurnRate() {
-        return -ahrs.getRate();
+        return ahrs.getRate();
+        //return imu.getRate();
    }
 
 }

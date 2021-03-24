@@ -13,7 +13,7 @@ import frc.robot.RobotContainer;
 import frc.robot.WaypointDrive;
 import frc.robot.Waypoints;
 
-public class AutoSlalomPath extends SequentialCommandGroup {
+public class AutoGalacticSearchChallengePathB_BLUE extends SequentialCommandGroup {
 
     private final LiftSubsystem m_liftSubsystem;
     private final DriveSubsystem m_driveSubsystem;
@@ -21,11 +21,12 @@ public class AutoSlalomPath extends SequentialCommandGroup {
     private final FuelShooterPIDSubsystem m_fuelShooterPIDSubsystem;
     private final FuelDeliverySubSystem m_fuelDeliverySubSystem;
 
-    public AutoSlalomPath(LiftSubsystem subsystemLift, 
-                        DriveSubsystem subsystemDrive, 
-                        ControlPanelSubsystem subsystemControlPanel, 
-                        FuelShooterPIDSubsystem subsystemFuelPid, 
-                        FuelDeliverySubSystem subsystemFuelDelivery){
+
+    public AutoGalacticSearchChallengePathB_BLUE(LiftSubsystem subsystemLift, 
+        DriveSubsystem subsystemDrive, 
+        ControlPanelSubsystem subsystemControlPanel, 
+        FuelShooterPIDSubsystem subsystemFuelPid, 
+        FuelDeliverySubSystem subsystemFuelDelivery){
 
             m_liftSubsystem = subsystemLift;
             m_driveSubsystem = subsystemDrive;

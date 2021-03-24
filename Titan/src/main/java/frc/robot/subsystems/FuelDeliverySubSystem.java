@@ -25,6 +25,7 @@ import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.Counter;
 //import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.DigitalInput;
 
@@ -59,7 +60,7 @@ public class FuelDeliverySubSystem extends SubsystemBase {
     //private double ShooterTopMotorSpeed = 0.65;//0.50; //Start .42
     //private double ShooterBottomMotorSpped = 0.65; //0.60; //Start 0.42  //Start .46
   
-    private double ConveyorMotorSpeed = .85;
+    private double ConveyorMotorSpeed = .75;
     //private double ShooterSpeed = 0.50;
   
     private Ultrasonic fuelDetectorUltrasonic;
@@ -94,6 +95,7 @@ public class FuelDeliverySubSystem extends SubsystemBase {
 
         compressor = new Compressor(PCMDeviceID);
         addChild("Compressor",compressor);
+        
 
         powerDistributionPanel = new PowerDistributionPanel(1);
         addChild("PowerDistributionPanel",powerDistributionPanel);
@@ -134,6 +136,9 @@ public class FuelDeliverySubSystem extends SubsystemBase {
 
         SelectedPosition = Constants.AnglePositionAndPower.REINTROZONE;
 
+        //Shuffleboard.getTab("Shooting Challenges").addPersistent("Shooter Calculated Counter", ShooterCalculatedCounter);
+
+
     }
     //public void initDefaultCommand() {
     //    // Set the default command for a subsystem here.
@@ -172,8 +177,11 @@ public class FuelDeliverySubSystem extends SubsystemBase {
 
         }
 
-        if (!ShooterLimitRetract.get() ) {
-            System.out.println("Limit Pressed");
+        //Shuffleboard.getTab("Shooting Challenges").addPersistent("Shooter Minimum Limit", ShooterPostitionMinLimitHit());
+
+        
+        if (!ShooterLimitRetract.get() && ShooterMovingDirection != ShooterAngleDirection.Up ) {
+            //System.out.println("Limit Pressed");
             ShooterPostitionMinLimitHit();
         }
 
@@ -189,8 +197,13 @@ public class FuelDeliverySubSystem extends SubsystemBase {
             } else {
                 //Should not get here.
             }
+
+            //System.out.print("Calculated Shooter Position "); 
+            //System.out.println(ShooterCalculatedCounter);
         }
 
+
+        //Hippo Stall Detection / Handling
         if (powerDistributionPanel.getCurrent(1) > 5)
         {
             if(HippoMotorStallCount > 100)

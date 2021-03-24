@@ -23,14 +23,14 @@ public class Constants {
 
     public static final class DriveConstants {
     
-        public static final double kTrackwidthMeters = 0.6731;
+        public static final double kTrackwidthMeters = 0.5889393;
         public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(kTrackwidthMeters);
     
         // Characterization
-        public static final double ksVolts = 0.24; //0.22;
-        public static final double kvVoltSecondsPerMeter = 1.98;
-        public static final double kaVoltSecondsSquaredPerMeter = 0.2;
-        public static final double kPDriveVel = 6.5;
+        public static final double ksVolts = 1.1; //0.255; //0.22;
+        public static final double kvVoltSecondsPerMeter = 2.58;//1.00;//1.98;
+        public static final double kaVoltSecondsSquaredPerMeter = 0.0175;//0.988;
+        public static final double kPDriveVel = 0.102;//1.0;
     }
     
     public static final class OIConstants {
@@ -38,8 +38,8 @@ public class Constants {
     }
     
     public static final class AutoConstants {
-        public static final double kMaxSpeedMetersPerSecond = 3.95;
-        public static final double kMaxAccelerationMetersPerSecondSquared = 3;
+        public static final double kMaxSpeedMetersPerSecond = 1.00; //3.00;//3.95;
+        public static final double kMaxAccelerationMetersPerSecondSquared = 0.988;//3;
 
         // https://docs.wpilib.org/en/latest/docs/software/advanced-controls/trajectories/ramsete.html
         public static final double kRamseteB = 2;
@@ -48,12 +48,12 @@ public class Constants {
 
     public enum AnglePositionAndPower 
     { 
-        GREENZONE(1,300,0.5),    
-        YELLOWZONE(5,305, 1.0), 
-        BLUEZONE(10,310, 1.5), 
-        REDZONE(25,315, 2.0),
-        REINTROZONE(30,325,0),
-        SHOOTINGZONE(40,330, 2.5); 
+        GREENZONE(800,300,0.5),    
+        YELLOWZONE(700,325, 1.0), 
+        BLUEZONE(600,350, 1.5), 
+        REDZONE(500,375, 2.0),
+        SHOOTINGZONE(400,400, 2.5),
+        REINTROZONE(0,0,3.0); 
 
         private final int SetPoint;
         private final int SetPowerPoint;
