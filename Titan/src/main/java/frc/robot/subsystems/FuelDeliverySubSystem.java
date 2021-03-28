@@ -21,11 +21,11 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
-import edu.wpi.first.wpilibj.Ultrasonic;
+//import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.Counter;
 //import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+//import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.DigitalInput;
 
@@ -45,7 +45,7 @@ public class FuelDeliverySubSystem extends SubsystemBase {
     //private Spark ShooterBottomMotor;
     private Spark ShooterAdjustor;
     public Counter ShooterAngleCounter;
-    private DigitalInput ShooterLimitExtend;
+    //private DigitalInput ShooterLimitExtend;
     private DigitalInput ShooterLimitRetract;
 
     private DigitalInput ConveyorActivate;
@@ -63,7 +63,7 @@ public class FuelDeliverySubSystem extends SubsystemBase {
     private double ConveyorMotorSpeed = .75;
     //private double ShooterSpeed = 0.50;
   
-    private Ultrasonic fuelDetectorUltrasonic;
+    //private Ultrasonic fuelDetectorUltrasonic;
     public int FuelCount = 0;
     public boolean FuelAtIntakeDetected = false;
     

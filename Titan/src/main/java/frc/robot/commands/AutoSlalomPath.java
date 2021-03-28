@@ -1,17 +1,20 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
+//import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.LiftSubsystem;
+import frc.robot.subsystems.DriveSubsystem.RobotForward;
 import frc.robot.subsystems.DriveSubsystem;
+
 import frc.robot.subsystems.ControlPanelSubsystem;
 import frc.robot.subsystems.FuelShooterPIDSubsystem;
 import frc.robot.subsystems.FuelDeliverySubSystem;
 
 
-import frc.robot.RobotContainer;
+//import frc.robot.RobotContainer;
 import frc.robot.WaypointDrive;
 import frc.robot.Waypoints;
+
 
 public class AutoSlalomPath extends SequentialCommandGroup {
 
@@ -40,9 +43,10 @@ public class AutoSlalomPath extends SequentialCommandGroup {
             addRequirements(m_fuelDeliverySubSystem);
     
         addCommands(
+            new DriveSetForward(m_driveSubsystem, RobotForward.Hippo),
             new DriveReset(m_driveSubsystem),
             new FuelReleaseExtend(m_fuelDeliverySubSystem),
-            new WaypointDrive().DriveRamset(m_driveSubsystem, Waypoints.Demo_Path1_start, Waypoints.Demo_Path1_path, Waypoints.Demo_Path1_end),
+            new WaypointDrive().DriveRamset(m_driveSubsystem, Waypoints.slalom_racing_path_start, Waypoints.slalom_racing_path, Waypoints.slalom_racing_path_end),
             new FuelReleaseRetract(m_fuelDeliverySubSystem)
 
         );

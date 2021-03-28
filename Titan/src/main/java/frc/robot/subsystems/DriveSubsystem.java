@@ -11,11 +11,10 @@
 package frc.robot.subsystems;
 
 import frc.robot.RobotContainer;
-import jdk.jfr.Enabled;
 //import frc.robot.commands.*;
 //import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj.AnalogGyro;
+//import edu.wpi.first.wpilibj.AnalogGyro;
 //import com.analog.adis16470.frc.ADIS16470_IMU;
 //import com.analog.adis16470.frc.ADIS16470_IMU.ADIS16470CalibrationTime;
 //import com.analog.adis16470.frc.ADIS16470_IMU.IMUAxis;
@@ -64,7 +63,7 @@ public class DriveSubsystem extends SubsystemBase {
     //private ADIS16470_IMU imu;
     
 
-    private Rotation2d MyGyroAnlge;
+    //private Rotation2d MyGyroAnlge;
 
 
     private WPI_TalonSRX leftDriveSpeedControl;
@@ -79,6 +78,12 @@ public class DriveSubsystem extends SubsystemBase {
         Tank,
         Arcade
     }
+
+    public enum RobotForward {
+        Shooter,
+        Hippo
+    }
+
 
     private DriveStyle userDriveStyle = DriveStyle.Tank;
 
@@ -390,13 +395,15 @@ public class DriveSubsystem extends SubsystemBase {
         differentialDrive.arcadeDrive(fwd, rot);
     }
 
-    /**
-     * Controls the left and right sides of the drive directly with voltages.
-     *
-     * @param leftVolts the commanded left output
-     * @param rightVolts the commanded right output
-     */
-    public void tankDriveVolts(double leftVolts, double rightVolts) {
+    public void SetForwardShooter() {
+        leftDriveSpeedControl.setInverted(false);
+        rightDriveSpeedControl.setInverted(false);
+        leftDriveSpeedControlFollower.setInverted(false);
+        rightDrriveSpeedControlFollower.setInverted(false);
+
+    }
+
+    public void SetForwardHippo() {
         leftDriveSpeedControl.configVoltageCompSaturation(11.0);
         rightDriveSpeedControl.configVoltageCompSaturation(11.0);
 
@@ -411,22 +418,32 @@ public class DriveSubsystem extends SubsystemBase {
         leftDriveEncoder.setReverseDirection(true);
         rightDriveEncoder.setReverseDirection(false);
 
+    }
+
+    /**
+     * Controls the left and right sides of the drive directly with voltages.
+     *
+     * @param leftVolts the commanded left output
+     * @param rightVolts the commanded right output
+     */
+    public void tankDriveVolts(double leftVolts, double rightVolts) {
         leftDriveSpeedControl.setVoltage(leftVolts);
         rightDriveSpeedControl.setVoltage(rightVolts);
+
         differentialDrive.feed();
         
-        System.out.print(" X ");
-        System.out.print(ahrs.getRawGyroX());
-        System.out.print(" Y ");
-        System.out.print(ahrs.getRawGyroY());
-        System.out.print(" Z ");
-        System.out.print(ahrs.getRawGyroZ());
-        System.out.print(" Angle ");
-        System.out.print(Rotation2d.fromDegrees(getHeading()));
-        System.out.print(" Left ");
-        System.out.print(leftVolts);
-        System.out.print(" Right ");
-        System.out.println(rightVolts);
+        //System.out.print(" X ");
+        //System.out.print(ahrs.getRawGyroX());
+        //System.out.print(" Y ");
+        //System.out.print(ahrs.getRawGyroY());
+        //System.out.print(" Z ");
+        //System.out.print(ahrs.getRawGyroZ());
+        //System.out.print(" Angle ");
+        //System.out.print(Rotation2d.fromDegrees(getHeading()));
+        //System.out.print(" Left ");
+        //System.out.print(leftVolts);
+        //System.out.print(" Right ");
+        //System.out.println(rightVolts);
 
     }
 

@@ -20,15 +20,15 @@ public class DriveStraight extends CommandBase {
 
     private final DriveSubsystem m_driveSubsystem;
 
-    private final double kP = .0255;
+    //private final double kP = .0255;
     private final double kPbyAngle = 0.0255;
     private double Speed;
     private double distanceToTravel;
 
-    private double leftValue;
-    private double rightValue;
-    private double error;
-    private double correction;
+    //private double leftValue;
+    //private double rightValue;
+    //private double error;
+    //private double correction;
 
     private double errorByAngle;
     private double correctionByAngle;
@@ -62,10 +62,10 @@ public class DriveStraight extends CommandBase {
     @Override
     public void execute() {
         // Assuming no wheel slip, the difference in encoder distances is proportional to the heading error
-        leftValue =  m_driveSubsystem.leftDriveEncoder.getDistance();
-        rightValue =  m_driveSubsystem.rightDriveEncoder.getDistance();
-        error = leftValue - rightValue;
-        correction = (kP * error);
+        //leftValue =  m_driveSubsystem.leftDriveEncoder.getDistance();
+        //rightValue =  m_driveSubsystem.rightDriveEncoder.getDistance();
+        //error = leftValue - rightValue;
+        //correction = (kP * error);
 
         errorByAngle = m_driveSubsystem.getHeading();
         correctionByAngle = kPbyAngle * errorByAngle;

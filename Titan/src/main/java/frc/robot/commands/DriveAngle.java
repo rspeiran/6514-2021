@@ -25,7 +25,7 @@ public class DriveAngle extends CommandBase {
     private double TargetAngle = 0;
     private double Correction = 0;
     private double Error = 0;
-    private static double MinSpeed = 0.35;
+    //private static double MinSpeed = 0.35;
     private static double kP = .045;  //1/45 to start.  1/25
 
 
