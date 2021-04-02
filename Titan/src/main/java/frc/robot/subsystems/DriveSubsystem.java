@@ -87,7 +87,7 @@ public class DriveSubsystem extends SubsystemBase {
 
     private DriveStyle userDriveStyle = DriveStyle.Tank;
 
-    private final DifferentialDriveOdometry m_odometry;
+    public DifferentialDriveOdometry m_odometry;
 
     /**
     *
@@ -102,7 +102,7 @@ public class DriveSubsystem extends SubsystemBase {
         leftDriveEncoder.setMaxPeriod((.1));
         leftDriveEncoder.setMinRate(10);
         leftDriveEncoder.setSamplesToAverage(5);
-        leftDriveEncoder.setReverseDirection(false);
+        leftDriveEncoder.setReverseDirection(true);
 
         rightDriveEncoder = new Encoder(4, 5, false, EncodingType.k4X);
         addChild("RightDriveEncoder",rightDriveEncoder);
@@ -110,10 +110,11 @@ public class DriveSubsystem extends SubsystemBase {
         //rightDriveEncoder.setPIDSourceType(PIDSourceType.kRate);
         //rightDriveEncoder.setDistancePerPulse(19./2048.); //Inches
         rightDriveEncoder.setDistancePerPulse(1./4096.); //Inches
+        //rightDriveEncoder.setDistancePerPulse(1./1024.); //Inches
         rightDriveEncoder.setMaxPeriod((.1));
         rightDriveEncoder.setMinRate(10);
         rightDriveEncoder.setSamplesToAverage(5);
-        rightDriveEncoder.setReverseDirection(true);
+        rightDriveEncoder.setReverseDirection(false);
 
 
         //gyro = new AnalogGyro(0);
@@ -303,7 +304,10 @@ public class DriveSubsystem extends SubsystemBase {
         //MyGyroAnlge = new Rotation2d(0);
         //m_odometry.update(MyGyroAnlge, leftDriveEncoder.getDistance(), rightDriveEncoder.getDistance());
         //m_odometry.update(imu.getRotation2d(), leftDriveEncoder.getDistance(), rightDriveEncoder.getDistance());
-        m_odometry.update(Rotation2d.fromDegrees(getHeading()), leftDriveEncoder.getDistance(), rightDriveEncoder.getDistance());
+        //m_odometry.update(Rotation2d.fromDegrees(getHeading()), leftDriveEncoder.getDistance(), rightDriveEncoder.getDistance());
+        m_odometry.update(ahrs.getRotation2d(), leftDriveEncoder.getDistance(), rightDriveEncoder.getDistance());
+
+        //)   Rotation2d., leftDriveEncoder.getDistance(), rightDriveEncoder.getDistance());
 
         //System.out.print(" Left ");
         //System.out.print(leftDriveEncoder.getDistance());
@@ -313,6 +317,8 @@ public class DriveSubsystem extends SubsystemBase {
         //System.out.print(imu.getGyroInstantX());
         //System.out.print(" Y ");
         //System.out.println(imu.getGyroInstantY());
+        System.out.print(" POSE: ");
+        System.out.println(m_odometry.getPoseMeters());
 
 
     }
@@ -415,8 +421,8 @@ public class DriveSubsystem extends SubsystemBase {
         leftDriveSpeedControlFollower.setInverted(true);
         rightDrriveSpeedControlFollower.setInverted(false);
 
-        leftDriveEncoder.setReverseDirection(true);
-        rightDriveEncoder.setReverseDirection(false);
+        leftDriveEncoder.setReverseDirection(false);
+        rightDriveEncoder.setReverseDirection(true);
 
     }
 

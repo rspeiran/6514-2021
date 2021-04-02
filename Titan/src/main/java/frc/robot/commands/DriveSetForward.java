@@ -9,9 +9,9 @@ public class DriveSetForward extends CommandBase {
     
     private final RobotForward m_RobotForward;
 
-    public DriveSetForward(DriveSubsystem subsystem, RobotForward robotForward) {
+    public DriveSetForward(DriveSubsystem m_driveSubsystem2, RobotForward robotForward) {
 
-        m_driveSubsystem = subsystem;
+        m_driveSubsystem = m_driveSubsystem2;
         addRequirements(m_driveSubsystem);
         m_RobotForward = robotForward;
 

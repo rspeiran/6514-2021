@@ -39,15 +39,11 @@ public class FuelIntakeSeqCapture extends SequentialCommandGroup {
             new WaitCommand(0.25),
             new HippoMechIn(m_fuelDeliverySubSystem),
             new WaitCommand(0.25),
-            new HippoMotorOut(m_fuelDeliverySubSystem), //Free the fuel
-            new WaitCommand(0.15),
-            new HippoMotorIn(m_fuelDeliverySubSystem),
             new HippoMechOut(m_fuelDeliverySubSystem),
             new WaitCommand(0.15),
             new HippoMechIn(m_fuelDeliverySubSystem),
             new WaitCommand(0.25),
             new HippoMotorStop(m_fuelDeliverySubSystem)
-
         );
     }
 
