@@ -119,38 +119,48 @@ public class Waypoints {
     public static final Pose2d GalacticSearch_PathB_Red_start_Leg1 = new Pose2d(0, 0, new Rotation2d(0));
 
     public static final Translation2d[] GalacticSearch_PathB_Red_path_Leg1 = {
-        //new Translation2d(0.75, 0.762)
+        new Translation2d(1.31, 0.5715),
+        new Translation2d(1.75, 0.762)
     };
 
-    public static final Pose2d GalacticSearch_PathB_Red_end_Leg1 = new Pose2d(1.52, 0.762, new Rotation2d(0));
+    public static final Pose2d GalacticSearch_PathB_Red_end_Leg1 = new Pose2d(2.1875, 0.95, new Rotation2d(0));
 
     //===LEG 2
-    public static final Pose2d GalacticSearch_PathB_Red_start_Leg2 = new Pose2d(1.52, 0.762, new Rotation2d(0));
+    public static final Pose2d GalacticSearch_PathB_Red_start_Leg2 = new Pose2d(2.1875, 0.95, new Rotation2d(0));
 
     public static final Translation2d[] GalacticSearch_PathB_Red_path_Leg2 = {
-        //new Translation2d(1.75, -0.7620)
+        new Translation2d(2.40, 0.52)
     };
 
-    public static final Pose2d GalacticSearch_PathB_Red_end_Leg2 = new Pose2d(2.5, -0.762, new Rotation2d(0));
+    public static final Pose2d GalacticSearch_PathB_Red_end_Leg2 = new Pose2d(3.20, -0.652, new Rotation2d(0));
 
     //===LEG 3
-    public static final Pose2d GalacticSearch_PathB_Red_start_Leg3 = new Pose2d(2.50, -0.762, new Rotation2d(0));
+    public static final Pose2d GalacticSearch_PathB_Red_start_Leg3 = new Pose2d(3.20, -0.652, new Rotation2d(0));
 
     public static final Translation2d[] GalacticSearch_PathB_Red_path_Leg3 = {
-        //new Translation2d(2.50, 0.00),
-        //new Translation2d(2.50, 0.762)
+        new Translation2d(3.43, -0.38),
+        new Translation2d(3.71, 0.20)
     };
 
-    public static final Pose2d GalacticSearch_PathB_Red_end_Leg3 = new Pose2d(4.572, 0.762, new Rotation2d(0));
+    public static final Pose2d GalacticSearch_PathB_Red_end_Leg3 = new Pose2d(4.672, 0.552, new Rotation2d(0));
 
     //===LEG 4
-    public static final Pose2d GalacticSearch_PathB_Red_start_Leg4 = new Pose2d(4.572, 0.762, new Rotation2d(0));
+    public static final Pose2d GalacticSearch_PathB_Red_start_Leg4 = new Pose2d(4.572, 0.552, new Rotation2d(0));
 
     public static final Translation2d[] GalacticSearch_PathB_Red_path_Leg4 = {
         //new Translation2d(5.0, 0.35)
     };
 
-    public static final Pose2d GalacticSearch_PathB_Red_end_Leg4 = new Pose2d(5, 0, new Rotation2d(0));
+    public static final Pose2d GalacticSearch_PathB_Red_end_Leg4 = new Pose2d(5.50, 0, new Rotation2d(0));
+
+    //===LEG 4b
+    public static final Pose2d GalacticSearch_PathB_Red_start_Leg4b = new Pose2d(5, 0, new Rotation2d(0));
+
+    public static final Translation2d[] GalacticSearch_PathB_Red_path_Leg4b = {
+        //new Translation2d(5.0, 0.35)
+    };
+
+    public static final Pose2d GalacticSearch_PathB_Red_end_Leg4b = new Pose2d(5.5, 0, new Rotation2d(0));
 
 
 
@@ -219,13 +229,14 @@ public class Waypoints {
     public static final Pose2d slalom_racing_path_end = new Pose2d(5.00, -0.50, new Rotation2d(0));
 
     //LEG 1
-    public static final Pose2d slalom_racing_path_Start_Leg1 = new Pose2d(0, 0, new Rotation2d(0));
+    public static final Pose2d slalom_racing_path_Start_Leg1 = new Pose2d(0, -0.761, new Rotation2d(0));
 
     public static final Translation2d[] slalom_racing_path_Leg1 = {
-        //new Translation2d(5.0, 0.35)
+        new Translation2d(1.2, 0.0),
+        new Translation2d(2, 0.50)
     };
     
-    public static final Pose2d slalom_racing_path_End_Leg1 = new Pose2d(4.953, 0.762, new Rotation2d(-0.785));
+    public static final Pose2d slalom_racing_path_End_Leg1 = new Pose2d(4.5, 0.762, new Rotation2d(0));
 
     //LEG 2
     public static final Pose2d slalom_racing_path_Start_Leg2 = new Pose2d(4.953, 0.762, new Rotation2d(0-0.785));
