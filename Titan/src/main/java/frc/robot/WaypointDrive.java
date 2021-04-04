@@ -80,7 +80,7 @@ public class WaypointDrive {
         //     new Pose2d(5.0, 0, new Rotation2d(0)),
         //     config);
 
-        Trajectory exampleTrajectory =
+        Trajectory trajectoryToFollow =
         TrajectoryGenerator.generateTrajectory(
             // Start at the origin facing the +X direction
             m_startPose,
@@ -88,10 +88,9 @@ public class WaypointDrive {
             m_endPose,
             config);
 
-
         RamseteCommand ramseteCommand =
             new RamseteCommand(
-                exampleTrajectory,
+                trajectoryToFollow,
                 m_driveSubsystem::getPose,
                 new RamseteController(AutoConstants.kRamseteB, AutoConstants.kRamseteZeta),
                 new SimpleMotorFeedforward(
@@ -107,7 +106,7 @@ public class WaypointDrive {
                 m_driveSubsystem);
     
         // Reset odometry to the starting pose of the trajectory.
-        m_driveSubsystem.resetOdometry(exampleTrajectory.getInitialPose());
+        //m_driveSubsystem.resetOdometry(trajectoryToFollow.getInitialPose());
     
         // Run path following command, then stop at the end.
         return ramseteCommand.andThen(() -> m_driveSubsystem.tankDriveVolts(0, 0));

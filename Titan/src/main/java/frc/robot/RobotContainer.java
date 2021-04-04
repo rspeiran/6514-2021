@@ -193,36 +193,36 @@ public class RobotContainer {
         final JoystickButton shooterJoystickButton12 = new JoystickButton(shooterJoystick, 12);        
         shooterJoystickButton12.whenPressed(new DriveStyleToggle(m_driveSubsystem) ,true);
 
-        final JoystickButton shooterJoystickButton10 = new JoystickButton(shooterJoystick, 1);        
-        shooterJoystickButton10.whenPressed(new DoNothingDefaultButton() ,true);
+        //final JoystickButton shooterJoystickButton10 = new JoystickButton(shooterJoystick, 1);        
+        //shooterJoystickButton10.whenPressed(new DoNothingDefaultButton() ,true);
         //SmartDashboard.putData("ShooterJoystickButton10",new DoNothingDefaultButton() );
 
-        final JoystickButton shooterJoystickButton9 = new JoystickButton(shooterJoystick, 1);        
-        shooterJoystickButton9.whenPressed(new DoNothingDefaultButton() ,true);
+        //final JoystickButton shooterJoystickButton9 = new JoystickButton(shooterJoystick, 1);        
+        //shooterJoystickButton9.whenPressed(new DoNothingDefaultButton() ,true);
         //SmartDashboard.putData("ShooterJoystickButton9",new DoNothingDefaultButton() );
 
-        final JoystickButton shooterJoystickButton8 = new JoystickButton(shooterJoystick, 1);        
-        shooterJoystickButton8.whenPressed(new DoNothingDefaultButton() ,true);
+        //final JoystickButton shooterJoystickButton8 = new JoystickButton(shooterJoystick, 1);        
+        //shooterJoystickButton8.whenPressed(new DoNothingDefaultButton() ,true);
         //SmartDashboard.putData("ShooterJoystickButton8",new DoNothingDefaultButton() );
 
-        final JoystickButton shooterJoystickButton7 = new JoystickButton(shooterJoystick, 1);        
-        shooterJoystickButton7.whenPressed(new DoNothingDefaultButton() ,true);
+        //final JoystickButton shooterJoystickButton7 = new JoystickButton(shooterJoystick, 1);        
+        //shooterJoystickButton7.whenPressed(new DoNothingDefaultButton() ,true);
         //SmartDashboard.putData("ShooterJoystickButton7",new DoNothingDefaultButton() );
 
-        final JoystickButton shooterJoystickButton6 = new JoystickButton(shooterJoystick, 1);        
-        shooterJoystickButton6.whenPressed(new DoNothingDefaultButton() ,true);
+        //final JoystickButton shooterJoystickButton6 = new JoystickButton(shooterJoystick, 1);        
+        //shooterJoystickButton6.whenPressed(new DoNothingDefaultButton() ,true);
         //SmartDashboard.putData("ShooterJoystickButton6",new DoNothingDefaultButton() );
 
-        final JoystickButton shooterJoystickButton5 = new JoystickButton(shooterJoystick, 1);        
-        shooterJoystickButton5.whenPressed(new DoNothingDefaultButton() ,true);
+        //final JoystickButton shooterJoystickButton5 = new JoystickButton(shooterJoystick, 1);        
+        //shooterJoystickButton5.whenPressed(new DoNothingDefaultButton() ,true);
         //SmartDashboard.putData("ShooterJoystickButton5",new DoNothingDefaultButton() );
 
-        final JoystickButton shooterJoystickButton4 = new JoystickButton(shooterJoystick, 1);        
-        shooterJoystickButton4.whenPressed(new DoNothingDefaultButton() ,true);
+        //final JoystickButton shooterJoystickButton4 = new JoystickButton(shooterJoystick, 1);        
+        //shooterJoystickButton4.whenPressed(new DoNothingDefaultButton() ,true);
         //SmartDashboard.putData("ShooterJoystickButton4",new DoNothingDefaultButton() );
 
-        final JoystickButton shooterJoystickButton3 = new JoystickButton(shooterJoystick, 1);        
-        shooterJoystickButton3.whenPressed(new DoNothingDefaultButton() ,true);
+        //final JoystickButton shooterJoystickButton3 = new JoystickButton(shooterJoystick, 1);        
+        //shooterJoystickButton3.whenPressed(new DoNothingDefaultButton() ,true);
         //SmartDashboard.putData("ShooterJoystickButton3",new DoNothingDefaultButton() );
 
         final JoystickButton shooterJoystickButton2 = new JoystickButton(shooterJoystick, 2);        
@@ -233,16 +233,16 @@ public class RobotContainer {
         shooterJoystickButton1.whenPressed(new ShooterOn(m_fuelShooterPIDSubsystem, 350) ,true);
         //SmartDashboard.putData("SJ Shooter On (A)",new ShooterOn(m_fuelDeliverySubSystem) );
 
-        final JoystickButton driverJoystickButton10 = new JoystickButton(driverJoystick, 1);        
-        driverJoystickButton10.whenPressed(new DoNothingDefaultButton() ,true);
+        //final JoystickButton driverJoystickButton10 = new JoystickButton(driverJoystick, 1);        
+        //driverJoystickButton10.whenPressed(new DoNothingDefaultButton() ,true);
         //SmartDashboard.putData("DriverJoystickButton10",new DoNothingDefaultButton() );
 
         final JoystickButton driverJoystickButton9 = new JoystickButton(driverJoystick, 9);        
         driverJoystickButton9.whenPressed(new DriveStyleToggle(m_driveSubsystem) ,true);
         //SmartDashboard.putData("DriverJoystickButton9",new DoNothingDefaultButton() );
 
-        final JoystickButton driverJoystickButton8 = new JoystickButton(driverJoystick, 1);        
-        driverJoystickButton8.whenPressed(new DoNothingDefaultButton() ,true);
+        //final JoystickButton driverJoystickButton8 = new JoystickButton(driverJoystick, 1);        
+        //driverJoystickButton8.whenPressed(new DoNothingDefaultButton() ,true);
         //SmartDashboard.putData("DriverJoystickButton8",new DoNothingDefaultButton() );
 
         final JoystickButton driverJoystickButton7 = new JoystickButton(driverJoystick, 7);        
@@ -253,20 +253,20 @@ public class RobotContainer {
         driverJoystickButton6.whenPressed(new ConveyorDown(0.08, m_fuelDeliverySubSystem) ,true);
         //SmartDashboard.putData("DriverJoystickButton6",new DoNothingDefaultButton() );
 
-        final JoystickButton driverJoystickButton5 = new JoystickButton(driverJoystick, 1);        
-        driverJoystickButton5.whenPressed(new DoNothingDefaultButton() ,true);
+        //final JoystickButton driverJoystickButton5 = new JoystickButton(driverJoystick, 1);        
+        //driverJoystickButton5.whenPressed(new DoNothingDefaultButton() ,true);
         //SmartDashboard.putData("DriverJoystickButton5",new DoNothingDefaultButton() );
 
         final JoystickButton driverJoystickButton4 = new JoystickButton(driverJoystick, 4);        
         driverJoystickButton4.whenPressed(new FuelIntakeSeqStart(m_driveSubsystem, m_fuelDeliverySubSystem) ,true);
         //SmartDashboard.putData("DriverJoystickButton4",new DoNothingDefaultButton() );
 
-        final JoystickButton driverJoystickButton3 = new JoystickButton(driverJoystick, 1);        
-        driverJoystickButton3.whenPressed(new DoNothingDefaultButton() ,true);
+        //final JoystickButton driverJoystickButton3 = new JoystickButton(driverJoystick, 1);        
+        //driverJoystickButton3.whenPressed(new DoNothingDefaultButton() ,true);
         //SmartDashboard.putData("DriverJoystickButton3",new DoNothingDefaultButton() );
 
-        final JoystickButton driverJoystickButton2 = new JoystickButton(driverJoystick, 1);        
-        driverJoystickButton2.whenPressed(new DoNothingDefaultButton() ,true);
+        //final JoystickButton driverJoystickButton2 = new JoystickButton(driverJoystick, 1);        
+        //driverJoystickButton2.whenPressed(new DoNothingDefaultButton() ,true);
         //SmartDashboard.putData("DriverJoystickButton2",new DoNothingDefaultButton() );
 
         final JoystickButton driverJoystickButton1 = new JoystickButton(driverJoystick, 1);        

@@ -229,50 +229,74 @@ public class Waypoints {
     public static final Pose2d slalom_racing_path_end = new Pose2d(5.00, -0.50, new Rotation2d(0));
 
     //LEG 1
-    public static final Pose2d slalom_racing_path_Start_Leg1 = new Pose2d(0, -0.761, new Rotation2d(0));
+    public static final Pose2d slalom_racing_path_Start_Leg1 = new Pose2d(0, 0, new Rotation2d(0));
 
     public static final Translation2d[] slalom_racing_path_Leg1 = {
-        new Translation2d(1.2, 0.0),
-        new Translation2d(2, 0.50)
+        new Translation2d(0.83, 0.35),
+        new Translation2d(1.5, 1.00),
+        new Translation2d(2.5, 1.15)
+
     };
     
-    public static final Pose2d slalom_racing_path_End_Leg1 = new Pose2d(4.5, 0.762, new Rotation2d(0));
+    public static final Pose2d slalom_racing_path_End_Leg1 = new Pose2d(5.75, 1.15, new Rotation2d(0));
 
     //LEG 2
-    public static final Pose2d slalom_racing_path_Start_Leg2 = new Pose2d(4.953, 0.762, new Rotation2d(0-0.785));
+    public static final Pose2d slalom_racing_path_Start_Leg2 = new Pose2d(5.75, 1.15, new Rotation2d(0));
 
     public static final Translation2d[] slalom_racing_path_Leg2 = {
-        //new Translation2d(5.0, 0.35)
+        //new Translation2d(6.25, -0.25),
     };
     
-    public static final Pose2d slalom_racing_path_End_Leg2 = new Pose2d(6.858, 0.762, new Rotation2d(1.57));
+    public static final Pose2d slalom_racing_path_End_Leg2 = new Pose2d(6.45, 0.00, new Rotation2d(-0.785));
 
     //LEG 3
-    public static final Pose2d slalom_racing_path_Start_Leg3 = new Pose2d(6.858, 0.762, new Rotation2d(1.57));
+    public static final Pose2d slalom_racing_path_Start_Leg3 = new Pose2d(6.45, 0.0, new Rotation2d(-0.785));
 
     public static final Translation2d[] slalom_racing_path_Leg3 = {
-        //new Translation2d(5.0, 0.35)
+        //new Translation2d(7.00, -0.60)
     };
     
-    public static final Pose2d slalom_racing_path_End_Leg3 = new Pose2d(4.953, 0, new Rotation2d(3.14));
+    public static final Pose2d slalom_racing_path_End_Leg3 = new Pose2d(7.45, 0.15, new Rotation2d(1.57));
+
+    //LEG 3b
+    public static final Pose2d slalom_racing_path_Start_Leg3b = new Pose2d(7.45, 0.15, new Rotation2d(1.57));
+
+    public static final Translation2d[] slalom_racing_path_Leg3b = {
+        //new Translation2d(7.00, -0.60)
+    };
+    
+    public static final Pose2d slalom_racing_path_End_Leg3b = new Pose2d(7.00, 0.90, new Rotation2d(3.14));
     
     //LEG 4
-    public static final Pose2d slalom_racing_path_Start_Leg4 = new Pose2d(4.953, 0, new Rotation2d(3.14));
+    public static final Pose2d slalom_racing_path_Start_Leg4 = new Pose2d(7.00, 0.90, new Rotation2d(3.14));
 
     public static final Translation2d[] slalom_racing_path_Leg4 = {
-        //new Translation2d(5.0, 0.35)
+        new Translation2d(6.30, 0.00)
     };
     
-    public static final Pose2d slalom_racing_path_End_Leg4 = new Pose2d(1.524, 0, new Rotation2d(3.14));
+    public static final Pose2d slalom_racing_path_End_Leg4 = new Pose2d(5.525, -0.25, new Rotation2d(3.14));
 
     //LEG 5
-    public static final Pose2d slalom_racing_path_Start_Leg5 = new Pose2d(1.524, 0, new Rotation2d(3.14));
+    public static final Pose2d slalom_racing_path_Start_Leg5 = new Pose2d(5.525, -0.25, new Rotation2d(3.14));
 
     public static final Translation2d[] slalom_racing_path_Leg5 = {
-        //new Translation2d(5.0, 0.35)
+        //new Translation2d(3.0, -0.25),
+        //new Translation2d(1.5, 0.00),
+        //new Translation2d(1.00, 0.60)
     };
     
-    public static final Pose2d slalom_racing_path_End_Leg5 = new Pose2d(-0.25, 1.524, new Rotation2d(3.14));
+    public static final Pose2d slalom_racing_path_End_Leg5 = new Pose2d(2.60, 0, new Rotation2d(2.220));
+
+    //LEG 6
+    public static final Pose2d slalom_racing_path_Start_Leg6 = new Pose2d(2.60, 0, new Rotation2d(2.20));
+
+    public static final Translation2d[] slalom_racing_path_Leg6 = {
+        //new Translation2d(3.0, -0.25),
+        //new Translation2d(1.5, 0.00),
+        //new Translation2d(1.0, 0.0)
+    };
+    
+    public static final Pose2d slalom_racing_path_End_Leg6 = new Pose2d(0, 1.00, new Rotation2d(3.14));
     
 
     //Bounce Path ===============================================================================

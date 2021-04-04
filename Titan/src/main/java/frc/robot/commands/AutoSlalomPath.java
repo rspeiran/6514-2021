@@ -46,7 +46,15 @@ public class AutoSlalomPath extends SequentialCommandGroup {
             new DriveSetForward(m_driveSubsystem, RobotForward.Hippo),
             new DriveReset(m_driveSubsystem),
             new FuelReleaseExtend(m_fuelDeliverySubSystem),
-            new WaypointDrive().DriveRamset(m_driveSubsystem, Waypoints.slalom_racing_path_start, Waypoints.slalom_racing_path, Waypoints.slalom_racing_path_end),
+            //new WaypointDrive().DriveRamset(m_driveSubsystem, Waypoints.slalom_racing_path_start, Waypoints.slalom_racing_path, Waypoints.slalom_racing_path_end),
+            new WaypointDrive().DriveRamset(m_driveSubsystem, Waypoints.slalom_racing_path_Start_Leg1, Waypoints.slalom_racing_path_Leg1, Waypoints.slalom_racing_path_End_Leg1),
+            new WaypointDrive().DriveRamset(m_driveSubsystem, Waypoints.slalom_racing_path_Start_Leg2, Waypoints.slalom_racing_path_Leg2, Waypoints.slalom_racing_path_End_Leg2),
+            new WaypointDrive().DriveRamset(m_driveSubsystem, Waypoints.slalom_racing_path_Start_Leg3, Waypoints.slalom_racing_path_Leg3, Waypoints.slalom_racing_path_End_Leg3),
+            new WaypointDrive().DriveRamset(m_driveSubsystem, Waypoints.slalom_racing_path_Start_Leg3b, Waypoints.slalom_racing_path_Leg3b, Waypoints.slalom_racing_path_End_Leg3b),
+            new WaypointDrive().DriveRamset(m_driveSubsystem, Waypoints.slalom_racing_path_Start_Leg4, Waypoints.slalom_racing_path_Leg4, Waypoints.slalom_racing_path_End_Leg4),
+            new WaypointDrive().DriveRamset(m_driveSubsystem, Waypoints.slalom_racing_path_Start_Leg5, Waypoints.slalom_racing_path_Leg5, Waypoints.slalom_racing_path_End_Leg5),
+            new WaypointDrive().DriveRamset(m_driveSubsystem, Waypoints.slalom_racing_path_Start_Leg6, Waypoints.slalom_racing_path_Leg6, Waypoints.slalom_racing_path_End_Leg6),
+
             new FuelReleaseRetract(m_fuelDeliverySubSystem)
 
         );

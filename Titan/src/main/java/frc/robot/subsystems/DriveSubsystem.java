@@ -88,6 +88,8 @@ public class DriveSubsystem extends SubsystemBase {
     private DriveStyle userDriveStyle = DriveStyle.Tank;
 
     public DifferentialDriveOdometry m_odometry;
+    public DifferentialDriveOdometry m_lastOdometry;
+
 
     /**
     *
@@ -252,6 +254,7 @@ public class DriveSubsystem extends SubsystemBase {
         
         //m_odometry = new DifferentialDriveOdometry(ahrs.getRotation2d());
         m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
+        m_lastOdometry = m_odometry;
         //MyGyroAnlge = new Rotation2d
         //m_odometry = new DifferentialDriveOdometry(MyGyroAnlge);
     }
@@ -259,6 +262,18 @@ public class DriveSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
+        if(RobotState.isAutonomous()) {
+            differentialDrive.feed();
+ 
+            if(m_lastOdometry != m_odometry){
+                System.out.print(" POSE: ");
+                System.out.println(m_odometry.getPoseMeters());
+                m_lastOdometry  = m_odometry;
+    
+            }
+    
+        }
+
         if (!RobotState.isAutonomous())
         {
             leftDriveSpeedControl.setInverted(false);
@@ -317,8 +332,6 @@ public class DriveSubsystem extends SubsystemBase {
         //System.out.print(imu.getGyroInstantX());
         //System.out.print(" Y ");
         //System.out.println(imu.getGyroInstantY());
-        System.out.print(" POSE: ");
-        System.out.println(m_odometry.getPoseMeters());
 
 
     }
@@ -515,6 +528,13 @@ public class DriveSubsystem extends SubsystemBase {
     public double getTurnRate() {
         return ahrs.getRate();
         //return imu.getRate();
+   }
+
+   public double getLeftEncoderSpeed() {
+       return leftDriveEncoder.getRate();
+   }
+   public double getRightEncoderSpeed() {
+       return rightDriveEncoder.getRate();
    }
 
 }
