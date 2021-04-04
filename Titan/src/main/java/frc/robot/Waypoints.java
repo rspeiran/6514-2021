@@ -209,6 +209,113 @@ public class Waypoints {
 
     public static final Pose2d barrel_racing_path_end = new Pose2d(9, 10, new Rotation2d(0));
 
+    //Leg 1
+    public static final Pose2d barrel_racing_path_start_Leg01 = new Pose2d(0, 0, new Rotation2d(0));
+
+    public static final Translation2d[] barrel_racing_path_Leg01 = {
+        //new Translation2d(7, 8)
+    };
+
+    public static final Pose2d barrel_racing_path_end_Leg01 = new Pose2d(3.048, 0, new Rotation2d(0));
+
+    //Leg 2
+    public static final Pose2d barrel_racing_path_start_Leg02 = new Pose2d(3.048, 0, new Rotation2d(0));
+
+    public static final Translation2d[] barrel_racing_path_Leg02 = {
+    //new Translation2d(7, 8)
+    };
+
+    public static final Pose2d barrel_racing_path_end_Leg02 = new Pose2d(3.6, -1.00, new Rotation2d(-2.15));
+
+
+    //Leg 3
+    public static final Pose2d barrel_racing_path_start_Leg03 = new Pose2d(3.6, -1.00, new Rotation2d(-3.14));
+
+    public static final Translation2d[] barrel_racing_path_Leg03 = {
+    //new Translation2d(7, 8)
+    };
+
+    public static final Pose2d barrel_racing_path_end_Leg03 = new Pose2d(2.300, -1.10, new Rotation2d(-3.30));
+
+
+    //Leg 4
+    public static final Pose2d barrel_racing_path_start_Leg04 = new Pose2d(2.3, -1.10, new Rotation2d(-3.925));
+
+    public static final Translation2d[] barrel_racing_path_Leg04 = {
+    //new Translation2d(7, 8)
+    };
+
+    public static final Pose2d barrel_racing_path_end_Leg04 = new Pose2d(2.10, -0.381, new Rotation2d(1.57));
+
+
+    //Leg 5
+    public static final Pose2d barrel_racing_path_start_Leg05 = new Pose2d(2.1, -0.381, new Rotation2d(1.57));
+
+    public static final Translation2d[] barrel_racing_path_Leg05 = {
+    //new Translation2d(7, 8)
+    };
+
+    public static final Pose2d barrel_racing_path_end_Leg05 = new Pose2d(6.25, 0.25, new Rotation2d(1.57));
+
+
+    //Leg6
+    public static final Pose2d barrel_racing_path_start_Leg06 = new Pose2d(6.25, 0.25, new Rotation2d(1.57));
+
+    public static final Translation2d[] barrel_racing_path_Leg06 = {
+    //new Translation2d(7, 8)
+    };
+
+    public static final Pose2d barrel_racing_path_end_Leg06 = new Pose2d(4.50, 1.15, new Rotation2d(3.14));
+
+
+    //Leg 7
+    public static final Pose2d barrel_racing_path_start_Leg07 = new Pose2d(4.50, 1.15, new Rotation2d(3.14));
+
+    public static final Translation2d[] barrel_racing_path_Leg07 = {
+    //new Translation2d(7, 8)
+    };
+
+    public static final Pose2d barrel_racing_path_end_Leg07 = new Pose2d(3.9624, 0.762, new Rotation2d(-1.00));
+
+
+    //Leg 8
+    public static final Pose2d barrel_racing_path_start_Leg08 = new Pose2d(3.9624, 0.762, new Rotation2d(-1.00));
+
+    public static final Translation2d[] barrel_racing_path_Leg08 = {
+    //new Translation2d(7, 8)
+    };
+
+    public static final Pose2d barrel_racing_path_end_Leg08 = new Pose2d(6.50, -0.90, new Rotation2d(0));
+
+
+    //Leg 9
+    public static final Pose2d barrel_racing_path_start_Leg09 = new Pose2d(6.50, -0.90, new Rotation2d(0));
+
+    public static final Translation2d[] barrel_racing_path_Leg09 = {
+    //new Translation2d(7, 8)
+    };
+
+    public static final Pose2d barrel_racing_path_end_Leg09 = new Pose2d(7.200, -0.80, new Rotation2d(1.57));
+
+
+    //Leg 10
+    public static final Pose2d barrel_racing_path_start_Leg10 = new Pose2d(7.200, -0.80, new Rotation2d(1.75));
+
+    public static final Translation2d[] barrel_racing_path_Leg10 = {
+    //new Translation2d(7, 8)
+    };
+
+    public static final Pose2d barrel_racing_path_end_Leg10 = new Pose2d(6.4, -0.30, new Rotation2d(3.14));
+
+    //Leg 11
+    public static final Pose2d barrel_racing_path_start_Leg11 = new Pose2d(6.4, 0, new Rotation2d(3.14));
+
+    public static final Translation2d[] barrel_racing_path_Leg11 = {
+        //new Translation2d(7, 8)
+    };
+
+    public static final Pose2d barrel_racing_path_end_Leg11 = new Pose2d(0.40, 0.500, new Rotation2d(3.14));
+
 
     //Slalom Path ===============================================================================
     public static final Pose2d slalom_racing_path_start = new Pose2d(0, 0, new Rotation2d(0));
@@ -302,40 +409,83 @@ public class Waypoints {
     //Bounce Path ===============================================================================
 
     //Bounce Path Leg 1
-    public static final Pose2d bounce_racing_path1_start  = new Pose2d(0, 0, new Rotation2d(0));
+    public static final Pose2d bounce_racing_path_start_Leg01  = new Pose2d(0, 0, new Rotation2d(0));
 
-    public static final Translation2d[] bounce_racing_path1 = {
-        new Translation2d(1, 2),
-        new Translation2d(3, 4),
-        new Translation2d(5, 6),
-        new Translation2d(7, 8)
+    public static final Translation2d[] bounce_racing_path_Leg01 = {
+        //new Translation2d(7, 8)
     };
     
-    public static final Pose2d bounce_racing_path1_end  = new Pose2d(9, 10, new Rotation2d(0));
+    public static final Pose2d bounce_racing_path_end_01  = new Pose2d(0.762, 0, new Rotation2d(0));
 
     //Bounce Path Leg 2
-    public static final Pose2d bounce_racing_path2_start  = new Pose2d(0, 0, new Rotation2d(0));
+    public static final Pose2d bounce_racing_path_start_Leg02  = new Pose2d(0.762, 0, new Rotation2d(0));
 
-    public static final Translation2d[] bounce_racing_path2 = {
-        new Translation2d(1, 2),
-        new Translation2d(3, 4),
-        new Translation2d(5, 6),
-        new Translation2d(7, 8)
+    public static final Translation2d[] bounce_racing_path_Leg02 = {
+        //new Translation2d(7, 8)
     };
     
-    public static final Pose2d bounce_racing_path2_end  = new Pose2d(9, 10, new Rotation2d(0));
-
+    public static final Pose2d bounce_racing_path_end_02  = new Pose2d(0.9144, 1.524, new Rotation2d(1.57));
 
     //Bounce Path Leg 3
-    public static final Pose2d bounce_racing_path3_start  = new Pose2d(0, 0, new Rotation2d(0));
+    public static final Pose2d bounce_racing_path_start_Leg03  = new Pose2d(0, 0, new Rotation2d(0));
 
-    public static final Translation2d[] bounce_racing_path3 = {
-        new Translation2d(1, 2),
-        new Translation2d(3, 4),
-        new Translation2d(5, 6),
-        new Translation2d(7, 8)
+    public static final Translation2d[] bounce_racing_path_Leg03 = {
+        //new Translation2d(7, 8)
     };
     
-    public static final Pose2d bounce_racing_path3_end  = new Pose2d(9, 10, new Rotation2d(0));
+    public static final Pose2d bounce_racing_path_end_03  = new Pose2d(9, 10, new Rotation2d(0));
+
+    //Bounce Path Leg 4
+    public static final Pose2d bounce_racing_path_start_Leg04  = new Pose2d(0, 0, new Rotation2d(0));
+
+    public static final Translation2d[] bounce_racing_path_Leg04 = {
+        //new Translation2d(7, 8)
+    };
     
-}
+    public static final Pose2d bounce_racing_path_end_04  = new Pose2d(9, 10, new Rotation2d(0));
+
+    //Bounce Path Leg 5
+    public static final Pose2d bounce_racing_path_start_Leg05  = new Pose2d(0, 0, new Rotation2d(0));
+
+    public static final Translation2d[] bounce_racing_path_Leg05 = {
+        //new Translation2d(7, 8)
+    };
+    
+    public static final Pose2d bounce_racing_path_end_05  = new Pose2d(9, 10, new Rotation2d(0));
+
+    //Bounce Path Leg 6
+    public static final Pose2d bounce_racing_path_start_Leg06  = new Pose2d(0, 0, new Rotation2d(0));
+
+    public static final Translation2d[] bounce_racing_path_Leg06 = {
+        //new Translation2d(7, 8)
+    };
+    
+    public static final Pose2d bounce_racing_path_end_06  = new Pose2d(9, 10, new Rotation2d(0));
+
+    //Bounce Path Leg 7
+    public static final Pose2d bounce_racing_path_start_Leg07  = new Pose2d(0, 0, new Rotation2d(0));
+
+    public static final Translation2d[] bounce_racing_path_Leg07 = {
+        //new Translation2d(7, 8)
+    };
+    
+    public static final Pose2d bounce_racing_path_end_07  = new Pose2d(9, 10, new Rotation2d(0));
+
+    //Bounce Path Leg 8
+    public static final Pose2d bounce_racing_path_start_Leg08  = new Pose2d(0, 0, new Rotation2d(0));
+
+    public static final Translation2d[] bounce_racing_path_Leg08 = {
+        //new Translation2d(7, 8)
+    };
+    
+    public static final Pose2d bounce_racing_path_end_08  = new Pose2d(9, 10, new Rotation2d(0));
+
+    //Bounce Path Leg 9
+    public static final Pose2d bounce_racing_path_start_Leg09  = new Pose2d(0, 0, new Rotation2d(0));
+
+    public static final Translation2d[] bounce_racing_path_Leg09 = {
+        //new Translation2d(7, 8)
+    };
+    
+    public static final Pose2d bounce_racing_path_end_09  = new Pose2d(9, 10, new Rotation2d(0));
+

@@ -1,6 +1,7 @@
 package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.LiftSubsystem;
+import frc.robot.subsystems.DriveSubsystem.RobotForward;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ControlPanelSubsystem;
 import frc.robot.subsystems.FuelShooterPIDSubsystem;
@@ -37,9 +38,20 @@ public class AutoBarrelRacingPath extends SequentialCommandGroup {
         addRequirements(m_fuelDeliverySubSystem);
     
         addCommands(
+            new DriveSetForward(m_driveSubsystem, RobotForward.Hippo),
             new DriveReset(m_driveSubsystem),
             new FuelReleaseExtend(m_fuelDeliverySubSystem),
-            new WaypointDrive().DriveRamset(m_driveSubsystem, Waypoints.Demo_Path1_start, Waypoints.Demo_Path1_path, Waypoints.Demo_Path1_end),
+            new WaypointDrive().DriveRamset(m_driveSubsystem, Waypoints.barrel_racing_path_start_Leg01, Waypoints.barrel_racing_path_Leg01, Waypoints.barrel_racing_path_end_Leg01),
+            new WaypointDrive().DriveRamset(m_driveSubsystem, Waypoints.barrel_racing_path_start_Leg02, Waypoints.barrel_racing_path_Leg02, Waypoints.barrel_racing_path_end_Leg02),
+            new WaypointDrive().DriveRamset(m_driveSubsystem, Waypoints.barrel_racing_path_start_Leg03, Waypoints.barrel_racing_path_Leg03, Waypoints.barrel_racing_path_end_Leg03),
+            new WaypointDrive().DriveRamset(m_driveSubsystem, Waypoints.barrel_racing_path_start_Leg04, Waypoints.barrel_racing_path_Leg04, Waypoints.barrel_racing_path_end_Leg04),
+            new WaypointDrive().DriveRamset(m_driveSubsystem, Waypoints.barrel_racing_path_start_Leg05, Waypoints.barrel_racing_path_Leg05, Waypoints.barrel_racing_path_end_Leg05),
+            new WaypointDrive().DriveRamset(m_driveSubsystem, Waypoints.barrel_racing_path_start_Leg06, Waypoints.barrel_racing_path_Leg06, Waypoints.barrel_racing_path_end_Leg06),
+            new WaypointDrive().DriveRamset(m_driveSubsystem, Waypoints.barrel_racing_path_start_Leg07, Waypoints.barrel_racing_path_Leg07, Waypoints.barrel_racing_path_end_Leg07),
+            new WaypointDrive().DriveRamset(m_driveSubsystem, Waypoints.barrel_racing_path_start_Leg08, Waypoints.barrel_racing_path_Leg08, Waypoints.barrel_racing_path_end_Leg08),
+            new WaypointDrive().DriveRamset(m_driveSubsystem, Waypoints.barrel_racing_path_start_Leg09, Waypoints.barrel_racing_path_Leg09, Waypoints.barrel_racing_path_end_Leg09),
+            new WaypointDrive().DriveRamset(m_driveSubsystem, Waypoints.barrel_racing_path_start_Leg10, Waypoints.barrel_racing_path_Leg10, Waypoints.barrel_racing_path_end_Leg10),
+            new WaypointDrive().DriveRamset(m_driveSubsystem, Waypoints.barrel_racing_path_start_Leg11, Waypoints.barrel_racing_path_Leg11, Waypoints.barrel_racing_path_end_Leg11),
             new FuelReleaseRetract(m_fuelDeliverySubSystem)
         );
     }
