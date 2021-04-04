@@ -411,7 +411,7 @@ public class Waypoints {
     //Bounce Path Leg 1
     public static final Pose2d bounce_racing_path_start_Leg01  = new Pose2d(0, 0, new Rotation2d(0));
 
-    public static final Translation2d[] bounce_racing_path_Leg01 = {
+    public static final Translation2d[] bounce_racing_path_Leg_01 = {
         //new Translation2d(7, 8)
     };
     
@@ -420,25 +420,25 @@ public class Waypoints {
     //Bounce Path Leg 2
     public static final Pose2d bounce_racing_path_start_Leg02  = new Pose2d(0.762, 0, new Rotation2d(0));
 
-    public static final Translation2d[] bounce_racing_path_Leg02 = {
+    public static final Translation2d[] bounce_racing_path_Leg_02 = {
         //new Translation2d(7, 8)
     };
     
-    public static final Pose2d bounce_racing_path_end_02  = new Pose2d(0.9144, 1.524, new Rotation2d(1.57));
+    public static final Pose2d bounce_racing_path_end_02  = new Pose2d(1.35, 0.90, new Rotation2d(1.57));
 
     //Bounce Path Leg 3
-    public static final Pose2d bounce_racing_path_start_Leg03  = new Pose2d(0, 0, new Rotation2d(0));
+    public static final Pose2d bounce_racing_path_start_Leg03  = new Pose2d(1.35, 0.90, new Rotation2d(1.57));
 
-    public static final Translation2d[] bounce_racing_path_Leg03 = {
+    public static final Translation2d[] bounce_racing_path_Leg_03 = {
         //new Translation2d(7, 8)
     };
     
-    public static final Pose2d bounce_racing_path_end_03  = new Pose2d(9, 10, new Rotation2d(0));
+    public static final Pose2d bounce_racing_path_end_03  = new Pose2d(2.44, -2.00, new Rotation2d(0));
 
     //Bounce Path Leg 4
     public static final Pose2d bounce_racing_path_start_Leg04  = new Pose2d(0, 0, new Rotation2d(0));
 
-    public static final Translation2d[] bounce_racing_path_Leg04 = {
+    public static final Translation2d[] bounce_racing_path_Leg_04 = {
         //new Translation2d(7, 8)
     };
     
@@ -447,7 +447,7 @@ public class Waypoints {
     //Bounce Path Leg 5
     public static final Pose2d bounce_racing_path_start_Leg05  = new Pose2d(0, 0, new Rotation2d(0));
 
-    public static final Translation2d[] bounce_racing_path_Leg05 = {
+    public static final Translation2d[] bounce_racing_path_Leg_05 = {
         //new Translation2d(7, 8)
     };
     
@@ -456,7 +456,7 @@ public class Waypoints {
     //Bounce Path Leg 6
     public static final Pose2d bounce_racing_path_start_Leg06  = new Pose2d(0, 0, new Rotation2d(0));
 
-    public static final Translation2d[] bounce_racing_path_Leg06 = {
+    public static final Translation2d[] bounce_racing_path_Leg_06 = {
         //new Translation2d(7, 8)
     };
     
@@ -465,14 +465,14 @@ public class Waypoints {
     //Bounce Path Leg 7
     public static final Pose2d bounce_racing_path_start_Leg07  = new Pose2d(0, 0, new Rotation2d(0));
 
-    public static final Translation2d[] bounce_racing_path_Leg07 = {
+    public static final Translation2d[] bounce_racing_path_Leg_07 = {
         //new Translation2d(7, 8)
     };
     
     public static final Pose2d bounce_racing_path_end_07  = new Pose2d(9, 10, new Rotation2d(0));
 
     //Bounce Path Leg 8
-    public static final Pose2d bounce_racing_path_start_Leg08  = new Pose2d(0, 0, new Rotation2d(0));
+    public static final Pose2d bounce_racing_path_start_Leg_08  = new Pose2d(0, 0, new Rotation2d(0));
 
     public static final Translation2d[] bounce_racing_path_Leg08 = {
         //new Translation2d(7, 8)
@@ -483,9 +483,11 @@ public class Waypoints {
     //Bounce Path Leg 9
     public static final Pose2d bounce_racing_path_start_Leg09  = new Pose2d(0, 0, new Rotation2d(0));
 
-    public static final Translation2d[] bounce_racing_path_Leg09 = {
+    public static final Translation2d[] bounce_racing_path_Leg_09 = {
         //new Translation2d(7, 8)
     };
     
     public static final Pose2d bounce_racing_path_end_09  = new Pose2d(9, 10, new Rotation2d(0));
+
+    }
 

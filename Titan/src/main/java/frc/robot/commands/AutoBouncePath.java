@@ -1,6 +1,7 @@
 package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.LiftSubsystem;
+import frc.robot.subsystems.DriveSubsystem.RobotForward;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ControlPanelSubsystem;
 import frc.robot.subsystems.FuelShooterPIDSubsystem;
@@ -37,10 +38,20 @@ public class AutoBouncePath extends SequentialCommandGroup {
     addRequirements(m_fuelDeliverySubSystem);
 
     addCommands(
-            new DriveReset(m_driveSubsystem),
-            new FuelReleaseExtend(m_fuelDeliverySubSystem),
-            new WaypointDrive().DriveRamset(m_driveSubsystem, Waypoints.Demo_Path1_start, Waypoints.Demo_Path1_path, Waypoints.Demo_Path1_end),
-            new FuelReleaseRetract(m_fuelDeliverySubSystem)
+        new DriveSetForward(m_driveSubsystem, RobotForward.Hippo),
+        new DriveReset(m_driveSubsystem),
+        new FuelReleaseExtend(m_fuelDeliverySubSystem),
+        new WaypointDrive().DriveRamset(m_driveSubsystem, Waypoints.bounce_racing_path_start_Leg01, Waypoints.bounce_racing_path_Leg_01, Waypoints.bounce_racing_path_end_01),
+        new WaypointDrive().DriveRamset(m_driveSubsystem, Waypoints.bounce_racing_path_start_Leg02, Waypoints.bounce_racing_path_Leg_02, Waypoints.bounce_racing_path_end_02),
+        new WaypointDrive().DriveRamset(m_driveSubsystem, Waypoints.bounce_racing_path_start_Leg03, Waypoints.bounce_racing_path_Leg_03, Waypoints.bounce_racing_path_end_03),
+        //new WaypointDrive().DriveRamset(m_driveSubsystem, Waypoints.bounce_racing_path_start_Leg04, Waypoints.bounce_racing_path_Leg_04, Waypoints.bounce_racing_path_end_03),
+        //new WaypointDrive().DriveRamset(m_driveSubsystem, Waypoints.bounce_racing_path_start_Leg05, Waypoints.bounce_racing_path_Leg_05, Waypoints.bounce_racing_path_end_03),
+        //new WaypointDrive().DriveRamset(m_driveSubsystem, Waypoints.bounce_racing_path_start_Leg06, Waypoints.bounce_racing_path_Leg_06, Waypoints.bounce_racing_path_end_03),
+        //new WaypointDrive().DriveRamset(m_driveSubsystem, Waypoints.bounce_racing_path_start_Leg07, Waypoints.bounce_racing_path_Leg_07, Waypoints.bounce_racing_path_end_03),
+        //new WaypointDrive().DriveRamset(m_driveSubsystem, Waypoints.bounce_racing_path_start_Leg08, Waypoints.bounce_racing_path_Leg_08, Waypoints.bounce_racing_path_end_03),
+        //new WaypointDrive().DriveRamset(m_driveSubsystem, Waypoints.bounce_racing_path_start_Leg09, Waypoints.bounce_racing_path_Leg_09, Waypoints.bounce_racing_path_end_03),
+
+        new FuelReleaseRetract(m_fuelDeliverySubSystem)
         );
     }
 
